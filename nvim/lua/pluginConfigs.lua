@@ -1,13 +1,3 @@
-require('fzf-lua').setup({ 'border-fused' }) -- FZF-LUA
-require('gitsigns').setup() -- GIT SIGNS
-require('nvim-tree').setup({ filters = { dotfiles = false }, view = { width = 45 } }) -- NVIM-TREE (g? in normal mode shows help menu)
-require("dapui").setup() -- DAP UI (debugger UI)
-
--- CODE WINDOW
-local codewindow = require('codewindow')
-codewindow.setup()
-codewindow.apply_default_keybinds()
-
 -- MASON AND LSPs => https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
 require("mason").setup()
 require("mason-lspconfig").setup({ ensure_installed = { "clangd", "pyright", "rust_analyzer", "lua_ls", "bashls", "jsonls", "html", "cssls", "vtsls", "gopls" } })
@@ -25,7 +15,7 @@ lspconfig.gopls.setup({})
 
 -- TREESITTER
 require('nvim-treesitter.configs').setup {
-    ensure_installed = "all", --ensure_installed = { "c", "cpp", "python", "javascript", "scala", "rust", "bash", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "json" }, 
+    ensure_installed = "all",
     sync_install = false,
     auto_install = true,
     highlight = { enable = true }
@@ -33,18 +23,11 @@ require('nvim-treesitter.configs').setup {
 
 -- LUALINE 
 require('lualine').setup({
+    sections = { lualine_c = { 'buffers' } },
     options = {
         theme = 'vscode',
         disabled_filetypes = { statusline = { 'NvimTree' } }
     },
-    sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = { 'buffers' }, --lualine_c = {'filename'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
-        lualine_y = {'progress'},
-        lualine_z = {'location'}
-  },
 })
 
 -- NOICE
@@ -65,3 +48,23 @@ require("noice").setup({
         lsp_doc_border = true, -- this is nice
     },
 })
+
+-- CODE WINDOW
+local codewindow = require('codewindow')
+codewindow.setup()
+codewindow.apply_default_keybinds()
+
+-- FZF-LUA
+require('fzf-lua').setup({ 'border-fused' })
+-- GIT SIGNS
+require('gitsigns').setup()
+-- DAP UI (debugger UI)
+require("dapui").setup() 
+
+-- NVIM-TREE (g? in normal mode shows help menu)
+require('nvim-tree').setup({
+    filters = { dotfiles = false },
+    view = { width = 40 }
+})
+
+

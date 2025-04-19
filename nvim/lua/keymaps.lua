@@ -1,9 +1,3 @@
--- ======================================================================================================
--- = KEYMAPS ============================================================================================
--- ======================================================================================================
-
-local git = require('misc').git
-
 local set = function(mode, keys, action, description)
     vim.keymap.set(mode, keys, action, { desc = description })
 end
@@ -12,17 +6,21 @@ set("i", "df", "<ESC>", "Exit insert mode with 'df'")
 set('t', 'df', '<C-\\><C-n>', "Exit insert mode when in terminal mode")
 set("n", "<leader>nh", "<cmd>nohl<CR>", "no highlight, clear search highlights")
 set('n', '<leader>a', 'i⇒<ESC>', 'Paste a right arrow character')
+
 -- GIT
-set('n', '<leader>gs', '<cmd>!git status<cr>', 'Git status')
-set('n', '<leader>ga', '<cmd>!git add .<cr>', 'Git add')
+local git = require('misc').git
 set('n', '<leader>gc', git.commit, 'Git commit')
 set('n', '<leader>gp', git.push, 'Git push')
+set('n', '<leader>gs', '<cmd>!git status<cr>', 'Git status')
+set('n', '<leader>ga', '<cmd>!git add .<cr>', 'Git add')
+
 -- BUFFERS
 set('n', '<leader>n', '<cmd>enew<cr>', "open a new empty buffer")
 set('n', '<leader>w', '<cmd>bd!<cr>', "Close / delete current buffer")
 set('n', '<leader>t', '<cmd>term<cr>', "Open a terminal buffer")
 set('n', '<leader>l', '<cmd>bnext<cr>', "Switch to next open buffer")
 set('n', '<leader>h', '<cmd>bprev<cr>', "Switch to previous open buffer")
+
 -- SPLITS
 set('n', '<leader>s', '<cmd>vs | enew<cr>', "Open new buffer in a vertical split")
 set('n', '<C-h>', '<C-w>h', "navigate splits with 'control + hjkl'")
@@ -72,5 +70,4 @@ local dapui = require('dapui')
 set('n', '<leader>do', dapui.open, 'open debugger ui')
 set('n', '<leader>dc', dapui.close, 'clsoe debugger ui')
 set('n', '<leader>dd', dapui.toggle, 'toggle debugger ui')
-
 
