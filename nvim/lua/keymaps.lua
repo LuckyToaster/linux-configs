@@ -88,6 +88,7 @@ keymap.set('n', '<leader>ff', '<Cmd>FzfLua files<cr>', { desc = "fuzzy find file
 keymap.set('n', '<leader>fh', '<Cmd>FzfLua files cwd=/home/lucky/<CR>', { desc = "fuzzy find files from ~" })
 keymap.set('n', '<leader>fb', '<Cmd>FzfLua buffers<cr>', { desc = "fuzzy find open buffers" })
 keymap.set('n', '<leader>fg', '<Cmd>FzfLua grep<cr>', { desc = "fuzzy find using grep" })
+
 -- GITSIGNS 
 keymap.set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>', { desc = "view changed lines" })
 keymap.set('n', '<leader>gv', '<Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })

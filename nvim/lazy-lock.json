@@ -1,5 +1,4 @@
 {
-  "auto-session": { "branch": "main", "commit": "71c8af9a99e96b9d2533cf4bac4dfed1eafab923" },
   "codewindow.nvim": { "branch": "master", "commit": "dd7017617962943eb1d152fc58940f11c6775a4a" },
   "fzf-lua": { "branch": "main", "commit": "34de8546d932497d90b24081045b8238b9818c76" },
   "gitsigns.nvim": { "branch": "main", "commit": "02eafb1273afec94447f66d1a43fc5e477c2ab8a" },
