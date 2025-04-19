@@ -1,9 +1,3 @@
--- ======================================================================================================
--- = BASIC VIM SETTTINGS ================================================================================
--- ======================================================================================================
-
---local keymap = vim.keymap
-
 -- disable netrw at the very start of your init.lua (for nvim-tree)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -35,9 +29,14 @@ vim.opt.scrolloff = 15                 -- when scrolling, prevent cursor from be
 vim.opt.sidescrolloff = 30
 vim.opt.splitright = true
 
-require('plugins')
+require('pluginManager')
 require('pluginConfigs')
 require('keymaps')
+
+-- COLORSCHEME => https://github.com/nvim-treesitter/nvim-treesitter/wiki/Colorschemes
+vim.o.background = 'dark'
+vim.cmd.syntax "off"
+vim.cmd.colorscheme "vscode"
 
 -- ======================================================================================================
 -- = PLUGIN MANAGER =====================================================================================

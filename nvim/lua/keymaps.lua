@@ -2,11 +2,51 @@
 -- = KEYMAPS ============================================================================================
 -- ======================================================================================================
 
+-- disable terminal numbers in terminal mode
+vim.api.nvim_create_autocmd("TermOpen", {
+    pattern = "*",
+    callback = function()
+        vim.opt_local.number = false         -- Disable absolute line numbers
+        vim.opt_local.relativenumber = false -- Disable relative line numbers
+    end,
+})
+
+-- commit to git function
+local gitCommit = function()
+    vim.ui.input({ prompt = 'Commit Message: ' }, function(msg) if msg then vim.cmd('!git commit -m "' .. msg .. '"') end end)
+end
+
+
+-- push to git function
+local gitPush = function()
+    local handle = io.popen("git config --get remote.origin.url")
+    if not handle then print('Failed to get git remote URL') return end
+
+    local repo_url = handle:read("*a")
+    if not repo_url then print('No remote URL found') return end
+
+    repo_url = repo_url:gsub("%s+", "") -- trim whitespace/newlines
+    handle:close()
+
+    local token = os.getenv("GIT_TOKEN")
+    if not token then print('Failed to get $GIT_TOKEN environment variable') return end
+
+    local command = '!git push https://luckytoaster'.. ':' .. token .. '@' .. repo_url:sub(9)
+    vim.cmd(command)
+end
+
+
 local keymap = vim.keymap
 
 keymap.set("i", "df", "<ESC>", { desc = "Exit insert mode with 'df'" })
 keymap.set('t', 'df', '<C-\\><C-n>', { desc = "Exit insert mode when in terminal mode" })
 keymap.set("n", "<leader>nh", "<cmd>nohl<CR>", { desc = "no highlight, clear search highlights" })
+keymap.set('n', '<leader>a', 'i⇒<ESC>', { desc = 'Paste a right arrow character' })
+-- GIT
+keymap.set('n', '<leader>gs', '<cmd>!git status<cr>', { desc = 'Git status' })
+keymap.set('n', '<leader>ga', '<cmd>!git add .<cr>', { desc = 'Git add' })
+keymap.set('n', '<leader>gc', gitCommit, { desc = 'Git commit' })
+keymap.set('n', '<leader>gp', gitPush, { desc = 'Git push' })
 -- BUFFERS
 keymap.set('n', '<leader>n', '<cmd>enew<cr>', { desc = "open a new empty buffer" })
 keymap.set('n', '<leader>w', '<cmd>bd!<cr>', { desc = "Close / delete current buffer" })
@@ -43,55 +83,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- nvim-tree
 keymap.set('n', '<leader>ft', '<cmd>NvimTreeToggle<cr>', { noremap = true, silent = true })
 keymap.set('n', '?', '<cmd>NvimTreeToggleHelp<cr>', { noremap = true, silent = true })
-
 -- FZF-LUA
-require('fzf-lua').setup({ 'border-fused' })
 keymap.set('n', '<leader>ff', '<Cmd>FzfLua files<cr>', { desc = "fuzzy find files from CWD" })
 keymap.set('n', '<leader>fh', '<Cmd>FzfLua files cwd=/home/lucky/<CR>', { desc = "fuzzy find files from ~" })
 keymap.set('n', '<leader>fb', '<Cmd>FzfLua buffers<cr>', { desc = "fuzzy find open buffers" })
 keymap.set('n', '<leader>fg', '<Cmd>FzfLua grep<cr>', { desc = "fuzzy find using grep" })
-
 -- GITSIGNS 
 keymap.set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>', { desc = "view changed lines" })
 keymap.set('n', '<leader>gv', '<Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
 keymap.set('n', '<leader>gk', '<Cmd>Gitsigns prev_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
 keymap.set('n', '<leader>gj', '<Cmd>Gitsigns next_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
-
--- disable terminal numbers in terminal mode
-vim.api.nvim_create_autocmd("TermOpen", {
-    pattern = "*",
-    callback = function()
-        vim.opt_local.number = false         -- Disable absolute line numbers
-        vim.opt_local.relativenumber = false -- Disable relative line numbers
-    end,
-})
-
-local gitCommit = function()
-    vim.ui.input({ prompt = 'Commit Message: ' }, function(msg) if msg then vim.cmd('!git commit -m "' .. msg .. '"') end end)
-end
-
-
-local gitPush = function()
-    local handle = io.popen("git config --get remote.origin.url")
-    if not handle then print('Failed to get git remote URL') return end
-
-    local repo_url = handle:read("*a")
-    if not repo_url then print('No remote URL found') return end
-
-    repo_url = repo_url:gsub("%s+", "") -- trim whitespace/newlines
-    handle:close()
-
-    local token = os.getenv("GIT_TOKEN")
-    if not token then print('Failed to get $GIT_TOKEN environment variable') return end
-
-    local command = '!git push https://luckytoaster'.. ':' .. token .. '@' .. repo_url:sub(9)
-    vim.cmd(command)
-end
-
--- My other mappings
-keymap.set('n', '<leader>a', 'i⇒<ESC>', { desc = 'Paste a right arrow character' })
-keymap.set('n', '<leader>gs', '<cmd>!git status<cr>', { desc = 'Git status' })
-keymap.set('n', '<leader>ga', '<cmd>!git add .<cr>', { desc = 'Git add' })
-keymap.set('n', '<leader>gc', gitCommit, { desc = 'Git commit' })
-keymap.set('n', '<leader>gp', gitPush, { desc = 'Git push' })
-

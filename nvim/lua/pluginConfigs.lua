@@ -1,3 +1,12 @@
+require('fzf-lua').setup({ 'border-fused' }) -- FZF-LUA
+require('gitsigns').setup() -- GIT SIGNS
+require('nvim-tree').setup({ filters = { dotfiles = false }, view = { width = 45 } }) -- NVIM-TREE (g? in normal mode shows help menu)
+
+-- CODE WINDOW
+local codewindow = require('codewindow')
+codewindow.setup()
+codewindow.apply_default_keybinds()
+
 -- MASON AND LSPs => https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
 require("mason").setup()
 require("mason-lspconfig").setup({ ensure_installed = { "clangd", "pyright", "rust_analyzer", "lua_ls", "bashls", "jsonls", "html", "cssls", "vtsls", "gopls" } })
@@ -20,11 +29,6 @@ require('nvim-treesitter.configs').setup {
     auto_install = true,
     highlight = { enable = true }
 }
-
--- COLORSCHEME => https://github.com/nvim-treesitter/nvim-treesitter/wiki/Colorschemes
-vim.o.background = 'dark'
-vim.cmd.syntax "off"
-vim.cmd.colorscheme "vscode"
 
 -- LUALINE 
 require('lualine').setup({
@@ -60,19 +64,3 @@ require("noice").setup({
     },
 })
 
--- NVIM-TREE (g? in normal mode shows help menu)
-require('nvim-tree').setup({
-    filters = { dotfiles = false },
-    view = { width = 45 },
-})
-
--- CODE WINDOW
-local codewindow = require('codewindow')
-codewindow.setup()
-codewindow.apply_default_keybinds()
-
--- FZF-LUA
-require('fzf-lua').setup({ 'border-fused' })
-
--- GIT SIGNS
-require('gitsigns').setup()
