@@ -60,21 +60,107 @@ opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {
+        -- lsp, syntax highlighting ...
         { 'williamboman/mason.nvim' },
         { 'williamboman/mason-lspconfig.nvim' },
-        { 'neovim/nvim-lspconfig',            lazy = false },
+        { 'neovim/nvim-lspconfig', lazy = false },
         { 'nvim-treesitter/nvim-treesitter' },
-        { 'lewis6991/gitsigns.nvim' },
-        { 'Mofiqul/vscode.nvim' },
-        { "ibhagwan/fzf-lua",                 dependencies = { "nvim-tree/nvim-web-devicons" } }, --, opts = {}},
-        { 'nvim-lualine/lualine.nvim',        dependencies = { 'nvim-tree/nvim-web-devicons' } },
-        { 'rmagatti/auto-session',            lazy = false,                                    opts = { suppressed_dirs = { '~/Downloads', '/' } } },
-        { 'nvim-tree/nvim-tree.lua',          lazy = false,                                    dependencies = { 'nvim-tree/nvim-web-devicons' } },
-        { 'gorbit99/codewindow.nvim' },       -- leader mm (minimap toggle) leader mf (minimap focus)
+        -- important 
+        { "ibhagwan/fzf-lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
+        { 'nvim-tree/nvim-tree.lua', lazy = false, dependencies = { 'nvim-tree/nvim-web-devicons' } },
+        { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
+        { "folke/noice.nvim", event = "VeryLazy", dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" } },
+        -- other nice stuff
+        { 'lewis6991/gitsigns.nvim' }, -- git stuff
+        { 'Mofiqul/vscode.nvim' }, -- colorscheme
+        { 'gorbit99/codewindow.nvim' }, -- leader mm (minimap toggle) leader mf (minimap focus)
+        { 'MeanderingProgrammer/render-markdown.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' } },
     },
     install = { colorscheme = { "vscode" } }, -- colorscheme that will be used when installing plugins.
     checker = { enabled = true },             -- automatically check for plugin updates
 })
+
+
+-- ======================================================================================================
+-- = PLUGIN CONFIGURATION ===============================================================================
+-- ======================================================================================================
+
+-- MASON AND LSPs => https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
+require("mason").setup()
+require("mason-lspconfig").setup({ ensure_installed = { "clangd", "pyright", "rust_analyzer", "lua_ls", "bashls", "jsonls", "html", "cssls", "vtsls", "gopls" } })
+local lspconfig = require("lspconfig")
+lspconfig.clangd.setup({})
+lspconfig.rust_analyzer.setup({})
+lspconfig.bashls.setup({})
+lspconfig.jsonls.setup({})
+lspconfig.html.setup({})
+lspconfig.cssls.setup({})
+lspconfig.vtsls.setup({})
+lspconfig.lua_ls.setup({ settings = { Lua = { diagnostics = { globals = { 'vim' } } } } })
+lspconfig.pyright.setup({})
+lspconfig.gopls.setup({})
+
+-- TREESITTER
+require('nvim-treesitter.configs').setup {
+    ensure_installed = "all", --ensure_installed = { "c", "cpp", "python", "javascript", "scala", "rust", "bash", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "json" }, 
+    sync_install = false,
+    auto_install = true,
+    highlight = { enable = true }
+}
+
+-- COLORSCHEME => https://github.com/nvim-treesitter/nvim-treesitter/wiki/Colorschemes
+vim.o.background = 'dark'
+vim.cmd.syntax "off"
+vim.cmd.colorscheme "vscode"
+
+-- LUALINE 
+require('lualine').setup({
+    options = {
+        theme = 'vscode',
+        disabled_filetypes = { statusline = { 'NvimTree' } }
+    },
+    sections = {
+        lualine_a = {'mode'},
+        lualine_b = {'branch', 'diff', 'diagnostics'},
+        lualine_c = { 'buffers' }, --lualine_c = {'filename'},
+        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_y = {'progress'},
+        lualine_z = {'location'}
+  },
+})
+
+-- NOICE
+require("noice").setup({
+    lsp = {
+        override = { -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+        },
+    },
+    presets = { -- you can enable a preset for easier configuration
+        long_message_to_split = true, -- long messages will be sent to a split
+        lsp_doc_border = true, -- add a border to hover docs and signature help
+    },
+    cmdline = {
+        view = 'cmdline', --'cmdline_popup', 'cmdline'
+    },
+})
+
+-- NVIM-TREE (g? in normal mode shows help menu)
+require('nvim-tree').setup({
+    filters = { dotfiles = false },
+    view = { width = 45 },
+})
+
+-- CODE WINDOW
+local codewindow = require('codewindow')
+codewindow.setup()
+codewindow.apply_default_keybinds()
+
+-- GIT SIGNS
+require('gitsigns').setup()
+
 
 -- ======================================================================================================
 -- = KEYMAPS ============================================================================================
@@ -82,23 +168,23 @@ require("lazy").setup({
 
 keymap.set("i", "df", "<ESC>", { desc = "Exit insert mode with 'df'" })
 keymap.set('t', 'df', '<C-\\><C-n>', { desc = "Exit insert mode when in terminal mode" })
-keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "no highlight, clear search highlights" })
+keymap.set("n", "<leader>nh", "<cmd>nohl<CR>", { desc = "no highlight, clear search highlights" })
 -- BUFFERS
-keymap.set('n', '<leader>n', ':enew<CR>', { desc = "open a new empty buffer" })
-keymap.set('n', '<leader>w', ':bd!<CR>', { desc = "Close / delete current buffer" })
-keymap.set('n', '<leader>t', ':term<CR>', { desc = "Open a terminal buffer" })
-keymap.set('n', '<leader>l', ':bnext<CR>', { desc = "Switch to next open buffer" })
-keymap.set('n', '<leader>h', ':bprev<CR>', { desc = "Switch to previous open buffer" })
+keymap.set('n', '<leader>n', '<cmd>enew<cr>', { desc = "open a new empty buffer" })
+keymap.set('n', '<leader>w', '<cmd>bd!<cr>', { desc = "Close / delete current buffer" })
+keymap.set('n', '<leader>t', '<cmd>term<cr>', { desc = "Open a terminal buffer" })
+keymap.set('n', '<leader>l', '<cmd>bnext<cr>', { desc = "Switch to next open buffer" })
+keymap.set('n', '<leader>h', '<cmd>bprev<cr>', { desc = "Switch to previous open buffer" })
 -- SPLITS
-keymap.set('n', '<leader>s', ':vs | enew<CR>', { desc = "Open new buffer in a vertical split" })
+keymap.set('n', '<leader>s', '<cmd>vs | enew<cr>', { desc = "Open new buffer in a vertical split" })
 keymap.set('n', '<C-h>', '<C-w>h', { desc = "navigate splits with 'control + hjkl'" })
 keymap.set('n', '<C-j>', '<C-w>j', { desc = "navigate splits with 'control + hjkl'" })
 keymap.set('n', '<C-k>', '<C-w>k', { desc = "navigate splits with 'control + hjkl'" })
 keymap.set('n', '<C-l>', '<C-w>l', { desc = "navigate splits with 'control + hjkl'" })
-keymap.set('n', '<C-left>', ':vertical resize +4<CR>', { desc = "resize splits with 'control + arrow keys'" })
-keymap.set('n', '<C-right>', ':vertical resize -4<CR>', { desc = "resize splits with 'control + arrow keys'" })
-keymap.set('n', '<C-up>', ':horizontal resize +4<CR>', { desc = "resize splits with 'control + arrow keys'" })
-keymap.set('n', '<C-down>', ':horizontal resize -4<CR>', { desc = "resize splits with 'control + arrow keys'" })
+keymap.set('n', '<C-left>', '<cmd>vertical resize +4<CR>', { desc = "resize splits with 'control + arrow keys'" })
+keymap.set('n', '<C-right>', '<cmd>vertical resize -4<CR>', { desc = "resize splits with 'control + arrow keys'" })
+keymap.set('n', '<C-up>', '<cmd>horizontal resize +4<CR>', { desc = "resize splits with 'control + arrow keys'" })
+keymap.set('n', '<C-down>', '<cmd>horizontal resize -4<CR>', { desc = "resize splits with 'control + arrow keys'" })
 -- LSP
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
@@ -117,30 +203,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 -- nvim-tree
-require('nvim-tree').setup()
-keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+keymap.set('n', '<leader>ft', '<cmd>NvimTreeToggle<cr>', { noremap = true, silent = true })
+keymap.set('n', '?', '<cmd>NvimTreeToggleHelp<cr>', { noremap = true, silent = true })
 
 -- FZF-LUA
 require('fzf-lua').setup({ 'border-fused' })
-keymap.set('n', '<leader>ff', '<Cmd>FzfLua files<CR>', { desc = "fuzzy find files from CWD" })
+keymap.set('n', '<leader>ff', '<Cmd>FzfLua files<cr>', { desc = "fuzzy find files from CWD" })
 keymap.set('n', '<leader>fh', '<Cmd>FzfLua files cwd=/home/lucky/<CR>', { desc = "fuzzy find files from ~" })
-keymap.set('n', '<leader>fb', '<Cmd>FzfLua buffers<CR>', { desc = "fuzzy find open buffers" })
-keymap.set('n', '<leader>fg', '<Cmd>FzfLua grep<CR>', { desc = "fuzzy find using grep" })
-
--- Auto-session
-keymap.set('n', '<leader>sr', ":SessionRes ore<CR>", { desc = "Restore session of cwd if any" })
-keymap.set('n', '<leader>sw', ":SessionSave<CR>", { desc = "Save current session" })
-keymap.set('n', '<leader>ss', ":SessionSearch<CR>", { desc = "Search for open sessions (uses telescope by default)" })
-opt.sessionoptions:append('localoptions')
+keymap.set('n', '<leader>fb', '<Cmd>FzfLua buffers<cr>', { desc = "fuzzy find open buffers" })
+keymap.set('n', '<leader>fg', '<Cmd>FzfLua grep<cr>', { desc = "fuzzy find using grep" })
 
 -- GITSIGNS 
-keymap.set('n', '<leader>gt', ':Gitsigns toggle_current_line_blame<CR>', { desc = "view changed lines" })
-keymap.set('n', '<leader>gb', ':Gitsigns stage_buffer<CR>', { desc = "view changed lines" })
-keymap.set('n', '<leader>gp', '<Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
+keymap.set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>', { desc = "view changed lines" })
+keymap.set('n', '<leader>gv', '<Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
 keymap.set('n', '<leader>gk', '<Cmd>Gitsigns prev_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
 keymap.set('n', '<leader>gj', '<Cmd>Gitsigns next_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
-keymap.set('n', '<leader>gh', '<Cmd>Gitsigns stage_hunk<CR>', { desc = "view changed lines" })
-keymap.set('n', '<leader>gu', '<Cmd>Gitsigns undo_stage_hunk<CR>', { desc = "view changed lines" })
 
 -- disable terminal numbers in terminal mode
 vim.api.nvim_create_autocmd("TermOpen", {
@@ -151,57 +228,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
     end,
 })
 
--- ======================================================================================================
--- = PLUGIN CONFIGURATION ===============================================================================
--- ======================================================================================================
+-- My other mappings
+keymap.set('n', '<leader>a', 'i⇒<ESC>', { desc = 'Paste a right arrow character' })
+keymap.set('n', '<leader>gs', '<cmd>!git status<cr>', { desc = 'Git status' })
+keymap.set('n', '<leader>ga', '<cmd>!git add .<cr>', { desc = 'Git add' })
+keymap.set('n', '<leader>gc', '<cmd>!git commit -m ', { desc = 'Git commit' })
+keymap.set('n', '<leader>gp', '<cmd>!git push origin', { desc = 'Git commit' })
 
--- COLORSCHEME => https://github.com/nvim-treesitter/nvim-treesitter/wiki/Colorschemes
-vim.o.background = 'dark'
-vim.cmd.syntax "off"
-vim.cmd.colorscheme "vscode"
-
--- LUALINE COLORSCHEME
-require('lualine').setup({ options = { theme = 'vscode' } })
-
--- CODE WINDOW
-local codewindow = require('codewindow')
-codewindow.setup()
-codewindow.apply_default_keybinds()
-
--- TREESITTER
-require('nvim-treesitter.configs').setup {
-    ensure_installed = { "c", "cpp", "python", "javascript", "scala", "rust", "bash", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "json" }, -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-    sync_install = false,
-    auto_install = true,
-    highlight = { enable = true }
-}
-
--- GIT SIGNS
-require('gitsigns').setup()
-
--- MASON => https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
-require("mason").setup()
-require("mason-lspconfig").setup({ ensure_installed = { "clangd", "pyright", "rust_analyzer", "lua_ls", "bashls", "jsonls", "html", "cssls", "vtsls" } })
-
--- LSP CONFIGURATION
-local lspconfig = require("lspconfig")
-lspconfig.clangd.setup({})
-lspconfig.rust_analyzer.setup({})
-lspconfig.bashls.setup({})
-lspconfig.jsonls.setup({})
-lspconfig.html.setup({})
-lspconfig.cssls.setup({})
-lspconfig.vtsls.setup({})
-lspconfig.lua_ls.setup({ settings = { Lua = { diagnostics = { globals = { 'vim' } } } } })
-lspconfig.pyright.setup({})
---[[
-    settings = {
-        python = { pythonPath = vim.fn.exepath('python') },
-        analysis = {
-            autoSearchPaths = true,
-            diagnosticMode = "openFilesOnly",
-            useLibraryCodeForTypes = true
-        }
-    }
-})
---]]
