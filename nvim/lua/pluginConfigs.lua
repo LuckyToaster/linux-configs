@@ -1,6 +1,7 @@
 require('fzf-lua').setup({ 'border-fused' }) -- FZF-LUA
 require('gitsigns').setup() -- GIT SIGNS
 require('nvim-tree').setup({ filters = { dotfiles = false }, view = { width = 45 } }) -- NVIM-TREE (g? in normal mode shows help menu)
+require("dapui").setup() -- DAP UI (debugger UI)
 
 -- CODE WINDOW
 local codewindow = require('codewindow')

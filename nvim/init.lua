@@ -32,6 +32,7 @@ vim.opt.splitright = true
 require('pluginManager')
 require('pluginConfigs')
 require('keymaps')
+require('misc').autocmds()
 
 vim.o.background = 'dark'
 vim.cmd.syntax "off"

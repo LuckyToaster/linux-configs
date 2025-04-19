@@ -2,67 +2,38 @@
 -- = KEYMAPS ============================================================================================
 -- ======================================================================================================
 
--- disable terminal numbers in terminal mode
-vim.api.nvim_create_autocmd("TermOpen", {
-    pattern = "*",
-    callback = function()
-        vim.opt_local.number = false         -- Disable absolute line numbers
-        vim.opt_local.relativenumber = false -- Disable relative line numbers
-    end,
-})
+local git = require('misc').git
 
--- commit to git function
-local gitCommit = function()
-    vim.ui.input({ prompt = 'Commit Message: ' }, function(msg) if msg then vim.cmd('!git commit -m "' .. msg .. '"') end end)
+local set = function(mode, keys, action, description)
+    vim.keymap.set(mode, keys, action, { desc = description })
 end
 
-
--- push to git function
-local gitPush = function()
-    local handle = io.popen("git config --get remote.origin.url")
-    if not handle then print('Failed to get git remote URL') return end
-
-    local repo_url = handle:read("*a")
-    if not repo_url then print('No remote URL found') return end
-
-    repo_url = repo_url:gsub("%s+", "") -- trim whitespace/newlines
-    handle:close()
-
-    local token = os.getenv("GIT_TOKEN")
-    if not token then print('Failed to get $GIT_TOKEN environment variable') return end
-
-    local command = '!git push https://luckytoaster'.. ':' .. token .. '@' .. repo_url:sub(9)
-    vim.cmd(command)
-end
-
-
-local keymap = vim.keymap
-
-keymap.set("i", "df", "<ESC>", { desc = "Exit insert mode with 'df'" })
-keymap.set('t', 'df', '<C-\\><C-n>', { desc = "Exit insert mode when in terminal mode" })
-keymap.set("n", "<leader>nh", "<cmd>nohl<CR>", { desc = "no highlight, clear search highlights" })
-keymap.set('n', '<leader>a', 'i⇒<ESC>', { desc = 'Paste a right arrow character' })
+set("i", "df", "<ESC>", "Exit insert mode with 'df'")
+set('t', 'df', '<C-\\><C-n>', "Exit insert mode when in terminal mode")
+set("n", "<leader>nh", "<cmd>nohl<CR>", "no highlight, clear search highlights")
+set('n', '<leader>a', 'i⇒<ESC>', 'Paste a right arrow character')
 -- GIT
-keymap.set('n', '<leader>gs', '<cmd>!git status<cr>', { desc = 'Git status' })
-keymap.set('n', '<leader>ga', '<cmd>!git add .<cr>', { desc = 'Git add' })
-keymap.set('n', '<leader>gc', gitCommit, { desc = 'Git commit' })
-keymap.set('n', '<leader>gp', gitPush, { desc = 'Git push' })
+set('n', '<leader>gs', '<cmd>!git status<cr>', 'Git status')
+set('n', '<leader>ga', '<cmd>!git add .<cr>', 'Git add')
+set('n', '<leader>gc', git.commit, 'Git commit')
+set('n', '<leader>gp', git.push, 'Git push')
 -- BUFFERS
-keymap.set('n', '<leader>n', '<cmd>enew<cr>', { desc = "open a new empty buffer" })
-keymap.set('n', '<leader>w', '<cmd>bd!<cr>', { desc = "Close / delete current buffer" })
-keymap.set('n', '<leader>t', '<cmd>term<cr>', { desc = "Open a terminal buffer" })
-keymap.set('n', '<leader>l', '<cmd>bnext<cr>', { desc = "Switch to next open buffer" })
-keymap.set('n', '<leader>h', '<cmd>bprev<cr>', { desc = "Switch to previous open buffer" })
+set('n', '<leader>n', '<cmd>enew<cr>', "open a new empty buffer")
+set('n', '<leader>w', '<cmd>bd!<cr>', "Close / delete current buffer")
+set('n', '<leader>t', '<cmd>term<cr>', "Open a terminal buffer")
+set('n', '<leader>l', '<cmd>bnext<cr>', "Switch to next open buffer")
+set('n', '<leader>h', '<cmd>bprev<cr>', "Switch to previous open buffer")
 -- SPLITS
-keymap.set('n', '<leader>s', '<cmd>vs | enew<cr>', { desc = "Open new buffer in a vertical split" })
-keymap.set('n', '<C-h>', '<C-w>h', { desc = "navigate splits with 'control + hjkl'" })
-keymap.set('n', '<C-j>', '<C-w>j', { desc = "navigate splits with 'control + hjkl'" })
-keymap.set('n', '<C-k>', '<C-w>k', { desc = "navigate splits with 'control + hjkl'" })
-keymap.set('n', '<C-l>', '<C-w>l', { desc = "navigate splits with 'control + hjkl'" })
-keymap.set('n', '<C-left>', '<cmd>vertical resize +4<CR>', { desc = "resize splits with 'control + arrow keys'" })
-keymap.set('n', '<C-right>', '<cmd>vertical resize -4<CR>', { desc = "resize splits with 'control + arrow keys'" })
-keymap.set('n', '<C-up>', '<cmd>horizontal resize +4<CR>', { desc = "resize splits with 'control + arrow keys'" })
-keymap.set('n', '<C-down>', '<cmd>horizontal resize -4<CR>', { desc = "resize splits with 'control + arrow keys'" })
+set('n', '<leader>s', '<cmd>vs | enew<cr>', "Open new buffer in a vertical split")
+set('n', '<C-h>', '<C-w>h', "navigate splits with 'control + hjkl'")
+set('n', '<C-j>', '<C-w>j', "navigate splits with 'control + hjkl'")
+set('n', '<C-k>', '<C-w>k', "navigate splits with 'control + hjkl'")
+set('n', '<C-l>', '<C-w>l', "navigate splits with 'control + hjkl'")
+set('n', '<C-left>', '<cmd>vertical resize +4<CR>', "resize splits with 'control + arrow keys'")
+set('n', '<C-right>', '<cmd>vertical resize -4<CR>', "resize splits with 'control + arrow keys'")
+set('n', '<C-up>', '<cmd>horizontal resize +4<CR>', "resize splits with 'control + arrow keys'")
+set('n', '<C-down>', '<cmd>horizontal resize -4<CR>', "resize splits with 'control + arrow keys'")
+
 -- LSP
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
@@ -80,17 +51,26 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
     end,
 })
+
 -- nvim-tree
-keymap.set('n', '<leader>ft', '<cmd>NvimTreeToggle<cr>', { noremap = true, silent = true })
-keymap.set('n', '?', '<cmd>NvimTreeToggleHelp<cr>', { noremap = true, silent = true })
+set('n', '<leader>ft', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
+
 -- FZF-LUA
-keymap.set('n', '<leader>ff', '<Cmd>FzfLua files<cr>', { desc = "fuzzy find files from CWD" })
-keymap.set('n', '<leader>fh', '<Cmd>FzfLua files cwd=/home/lucky/<CR>', { desc = "fuzzy find files from ~" })
-keymap.set('n', '<leader>fb', '<Cmd>FzfLua buffers<cr>', { desc = "fuzzy find open buffers" })
-keymap.set('n', '<leader>fg', '<Cmd>FzfLua grep<cr>', { desc = "fuzzy find using grep" })
+set('n', '<leader>ff', '<Cmd>FzfLua files<cr>', "Fuzzy find files from CWD")
+set('n', '<leader>fh', '<Cmd>FzfLua files cwd=/home/lucky/<CR>', "Fuzzy find files from ~")
+set('n', '<leader>fb', '<Cmd>FzfLua buffers<cr>', "Fuzzy find open buffers")
+set('n', '<leader>fg', '<Cmd>FzfLua grep<cr>', "Fuzzy find using grep")
 
 -- GITSIGNS 
-keymap.set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>', { desc = "view changed lines" })
-keymap.set('n', '<leader>gv', '<Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
-keymap.set('n', '<leader>gk', '<Cmd>Gitsigns prev_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
-keymap.set('n', '<leader>gj', '<Cmd>Gitsigns next_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', { desc = "view changed lines" })
+set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>', "view changed lines")
+set('n', '<leader>gv', '<Cmd>Gitsigns preview_hunk_inline<CR>', "view changed lines")
+set('n', '<leader>gk', '<Cmd>Gitsigns prev_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', "view changed lines")
+set('n', '<leader>gj', '<Cmd>Gitsigns next_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', "view changed lines")
+
+-- DAP UI
+local dapui = require('dapui')
+set('n', '<leader>do', dapui.open, 'open debugger ui')
+set('n', '<leader>dc', dapui.close, 'clsoe debugger ui')
+set('n', '<leader>dd', dapui.toggle, 'toggle debugger ui')
+
+
