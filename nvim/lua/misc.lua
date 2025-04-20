@@ -12,12 +12,12 @@ M.autocmds = function ()
     })
 
     -- Make sure :help always opens in new buffer in current window (same as ':help something | only')
-    vim.api.nvim_create_autocmd("FileType", {
-        pattern = "help",
-        callback = function()
-            vim.cmd("only")
-        end
-    })
+    -- vim.api.nvim_create_autocmd("FileType", {
+    --     pattern = "help",
+    --     callback = function()
+    --         vim.cmd("only")
+    --     end
+    -- })
 end
 
 

@@ -66,8 +66,8 @@ set('n', '<leader>gk', '<Cmd>Gitsigns prev_hunk<CR><Cmd>Gitsigns preview_hunk_in
 set('n', '<leader>gj', '<Cmd>Gitsigns next_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', "view changed lines")
 
 -- DAP UI
-local dapui = require('dapui')
-set('n', '<leader>do', dapui.open, 'open debugger ui')
-set('n', '<leader>dc', dapui.close, 'clsoe debugger ui')
-set('n', '<leader>dd', dapui.toggle, 'toggle debugger ui')
+-- local dapui = require('dapui')
+-- set('n', '<leader>do', dapui.open, 'open debugger ui')
+-- set('n', '<leader>dc', dapui.close, 'clsoe debugger ui')
+-- set('n', '<leader>dd', dapui.toggle, 'toggle debugger ui')
 

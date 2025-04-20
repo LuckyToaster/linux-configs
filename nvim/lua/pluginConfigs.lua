@@ -39,7 +39,6 @@ require("noice").setup({
             ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
         },
     },
-
     presets = {
         bottom_search = false, -- use a classic bottom cmdline for search
         command_palette = true, -- position the cmdline and popupmenu together
@@ -48,6 +47,7 @@ require("noice").setup({
         lsp_doc_border = true, -- this is nice
     },
 })
+
 
 -- CODE WINDOW
 local codewindow = require('codewindow')
@@ -59,7 +59,7 @@ require('fzf-lua').setup({ 'border-fused' })
 -- GIT SIGNS
 require('gitsigns').setup()
 -- DAP UI (debugger UI)
-require("dapui").setup() 
+--require("dapui").setup()
 
 -- NVIM-TREE (g? in normal mode shows help menu)
 require('nvim-tree').setup({

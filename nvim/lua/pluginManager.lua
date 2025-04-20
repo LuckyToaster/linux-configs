@@ -34,7 +34,7 @@ require("lazy").setup({
         { 'Mofiqul/vscode.nvim' }, -- colorscheme
         { 'gorbit99/codewindow.nvim' }, -- leader mm (minimap toggle) leader mf (minimap focus)
         { 'MeanderingProgrammer/render-markdown.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' } },
-        { "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
+        --{ "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
     },
     install = { colorscheme = { "vscode" } }, -- colorscheme that will be used when installing plugins.
     checker = { enabled = true },             -- automatically check for plugin updates
