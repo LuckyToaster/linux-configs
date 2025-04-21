@@ -4,10 +4,10 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Want to exit i3?' -B 'Yes, e
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-
 font pango:JetBrains Mono 10
 set $mod Mod1
-bindsym Mod1+Tab workspace next
+
+bindsym $mod+Tab workspace next
 bindsym F11 fullscreen toggle
 bindsym $mod+f exec --no-startup-id ~/.config/i3/toggle_floating_border.sh
 bindsym $mod+c kill
@@ -15,15 +15,12 @@ bindsym $mod+d exec --no-startup-id rofi -show drun -show-icons
 bindsym $mod+shift+x exec i3lock
 bindsym $mod+Shift+r restart
 
-# Non tilling behaviour
+# Non tilling behaviour    #mark --add auto-float
 for_window [urgent=latest] focus
-for_window [class=".*"] floating enable, border normal, mark --add auto-float
-#for_window [class=".*"] mark --add auto-float
-
+for_window [class=".*"] floating enable, border normal
 for_window [instance="brave"] floating disable, border none, move container to workspace 1
 for_window [instance="steam"] floating disable, border none, move container to workspace 4
 for_window [instance="kitty"] floating enable, border normal, resize set 1000 600, move position center  
-
 
 # Brightness
 bindsym XF86MonBrightnessUp exec brightnessctl set +10%
@@ -63,6 +60,17 @@ bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
+workspace $ws1 output $primary_monitor
+workspace $ws2 output $primary_monitor
+workspace $ws3 output $primary_monitor
+workspace $ws4 output $primary_monitor
+workspace $ws5 output $primary_monitor
+workspace $ws6 output $primary_monitor
+workspace $ws7 output $primary_monitor
+workspace $ws8 output $primary_monitor
+workspace $ws9 output $primary_monitor
+workspace $ws10 output $secondary_monitor
+
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
@@ -75,16 +83,18 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
-workspace $ws1 output $primary_monitor
-workspace $ws2 output $primary_monitor
-workspace $ws3 output $primary_monitor
-workspace $ws4 output $primary_monitor
-workspace $ws5 output $primary_monitor
-workspace $ws6 output $primary_monitor
-workspace $ws7 output $primary_monitor
-workspace $ws8 output $primary_monitor
-workspace $ws9 output $primary_monitor
-workspace $ws10 output $secondary_monitor
+bindsym $mod+Control+Right workspace prev
+bindsym $mod+Control+Left workspace next
+
+# # class                 border  backgr. text    indicator child_border
+# client.focused          #fbf1c7 #fbf1c7 #000000 #2e9ef4   #fbf1c7
+# client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+# client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+# client.urgent           #2f343a #900000 #ffffff #900000   #900000
+# client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+#
+# client.background       #ffffff
+
 
 # On startup / reload
 exec --no-startup-id picom --config ~/.config/picom/picom.conf --experimental-backends 
@@ -92,8 +102,9 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id brave-browser
 exec --no-startup-id nitrogen --restore
+exec --no-startup-id brave
 exec_always --no-startup-id xrandr --output HDMI-1 --auto --rotate normal --left-of eDP-1
 exec_always --no-startup-id /home/lucky/.config/i3/setup_touchpad.js
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id brave
+exec_always --no-startup-id xset r rate 150 40
 

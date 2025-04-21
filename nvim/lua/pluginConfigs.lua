@@ -21,6 +21,12 @@ require('nvim-treesitter.configs').setup {
     highlight = { enable = true }
 }
 
+-- COLORSCHEME
+require('vscode').setup({
+    transparent = false,
+})
+
+
 -- LUALINE 
 require('lualine').setup({
     sections = { lualine_c = { 'buffers' } },

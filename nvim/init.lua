@@ -37,3 +37,4 @@ require('misc').autocmds()
 vim.o.background = 'dark'
 vim.cmd.syntax "off"
 vim.cmd.colorscheme "vscode"
+

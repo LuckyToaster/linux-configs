@@ -1,0 +1,15 @@
+picom --config ~/.config/picom/picom.conf --experimental-backends &
+$HOME/.config/polybar/launch.sh &
+nm-applet &
+blueman-applet &
+brave-browser & 
+nitrogen --restore &
+xrandr --output HDMI-1 --auto --rotate normal --left-of eDP-1 &
+/home/lucky/.config/i3/setup_touchpad.js &
+xset r rate 150 40 &
+
+# Set preferred terminal to Kitty
+export TERMINAL=kitty
+
+# might remove this junk
+(sleep 1 && wmctrl -r "Polybar" -b add,below) &
