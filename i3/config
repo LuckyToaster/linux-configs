@@ -18,10 +18,13 @@ bindsym $mod+shift+x exec i3lock
 bindsym $mod+Shift+r restart
 
 # Non tilling behaviour
-for_window [class=".*"] floating enable, border normal
+for_window [class=".*"] floating enable, border normal, mark --add auto-float
+#for_window [class=".*"] mark --add auto-float
+
 for_window [instance="brave"] floating disable, border none, move container to workspace 1
 for_window [instance="kitty"] floating disable, border none, 
 for_window [instance="steam"] floating disable, border none, move container to workspace 4
+
 
 # Brightness
 bindsym XF86MonBrightnessUp exec brightnessctl set +10%
