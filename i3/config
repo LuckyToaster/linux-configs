@@ -4,8 +4,6 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Want to exit i3?' -B 'Yes, e
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# Switch workspace with urgent window automatically
-for_window [urgent=latest] focus
 
 font pango:JetBrains Mono 10
 set $mod Mod1
@@ -18,12 +16,13 @@ bindsym $mod+shift+x exec i3lock
 bindsym $mod+Shift+r restart
 
 # Non tilling behaviour
+for_window [urgent=latest] focus
 for_window [class=".*"] floating enable, border normal, mark --add auto-float
 #for_window [class=".*"] mark --add auto-float
 
 for_window [instance="brave"] floating disable, border none, move container to workspace 1
-for_window [instance="kitty"] floating disable, border none, 
 for_window [instance="steam"] floating disable, border none, move container to workspace 4
+for_window [instance="kitty"] floating enable, border normal, resize set 1000 600, move position center  
 
 
 # Brightness
@@ -88,14 +87,13 @@ workspace $ws9 output $primary_monitor
 workspace $ws10 output $secondary_monitor
 
 # On startup / reload
+exec --no-startup-id picom --config ~/.config/picom/picom.conf --experimental-backends 
 exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
 exec --no-startup-id brave-browser
 exec --no-startup-id nitrogen --restore
-exec --no-startup-id picom --config ~/.config/picom/picom.conf --experimental-backends 
-#exec_always --no-startup-id ~/.config/i3/setup_dual_screens.sh
 exec_always --no-startup-id xrandr --output HDMI-1 --auto --rotate normal --left-of eDP-1
+exec_always --no-startup-id /home/lucky/.config/i3/setup_touchpad.js
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id xinput set-prop 27 "libinput Tapping Enabled" 1
-exec_always --no-startup-id xinput set-prop 27 "libinput Natural Scrolling Enabled" 1
 exec --no-startup-id brave
 
