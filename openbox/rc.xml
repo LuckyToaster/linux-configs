@@ -184,6 +184,13 @@
         <command>rofi -show drun -show-icons</command>
       </action>
     </keybind>
+
+    <keybind key="A-Return">
+      <action name="Execute">
+        <command>kitty</command>
+      </action>
+    </keybind>
+
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
         <command>brightnessctl set +10%</command>

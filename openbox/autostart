@@ -11,5 +11,6 @@ xset r rate 150 40 &
 # Set preferred terminal to Kitty
 export TERMINAL=kitty
 
-# might remove this junk
-(sleep 1 && wmctrl -r "Polybar" -b add,below) &
+# .config/devilspie2/center.lua (centers windows on window creation)
+devilspie2 &
+
