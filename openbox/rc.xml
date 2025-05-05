@@ -246,7 +246,7 @@
 
     <!-- Keybindings for desktop switching -->
 
-    <keybind key="A-s"
+    <keybind key="A-s">
       <action name="ToggleShowDesktop"/>
     </keybind>
 
