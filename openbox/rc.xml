@@ -178,12 +178,39 @@
   </dock>
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
+
     <!-- My Keybindings -->
+
+    <keybind key="A-d">
+      <action name="Execute">
+        <command>rofi -show drun -theme ~/.config/rofi/launchers/type-3/style-2.rasi</command>
+      </action>
+    </keybind>
+
     <keybind key="A-Return">
       <action name="Execute">
         <command>kitty</command>
       </action>
     </keybind>
+
+    <keybind key="A-e">
+        <action name="Execute">
+            <command>nautilus</command>
+        </action>
+    </keybind>
+
+    <keybind key="A-b">
+        <action name="Execute">
+            <command>brave-browser</command>
+        </action>
+    </keybind>
+
+    <keybind key="Print">
+      <action name="Execute">
+        <command>flameshot gui</command>
+      </action>
+    </keybind>
+
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
         <command>brightnessctl set +10%</command>
@@ -194,6 +221,7 @@
         <command>brightnessctl set 10%-</command>
       </action>
     </keybind>
+
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
         <command>pactl set-sink-volume @DEFAULT_SINK@ +10%</command>
@@ -209,12 +237,19 @@
         <command>pactl set-sink-mute @DEFAULT_SINK@ toggle</command>
       </action>
     </keybind>
+
     <keybind key="XF86AudioMicMute">
       <action name="Execute">
         <command>pactl set-source-mute @DEFAULT_SOURCE@ toggle</command>
       </action>
     </keybind>
+
     <!-- Keybindings for desktop switching -->
+
+    <keybind key="A-s"
+      <action name="ToggleShowDesktop"/>
+    </keybind>
+
     <keybind key="C-A-Left">
       <action name="GoToDesktop">
         <to>left</to>
@@ -224,18 +259,6 @@
     <keybind key="C-A-Right">
       <action name="GoToDesktop">
         <to>right</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
-    <keybind key="C-A-Up">
-      <action name="GoToDesktop">
-        <to>up</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
-    <keybind key="C-A-Down">
-      <action name="GoToDesktop">
-        <to>down</to>
         <wrap>no</wrap>
       </action>
     </keybind>
@@ -252,20 +275,7 @@
         <wrap>no</wrap>
       </action>
     </keybind>
-    <!--
-    <keybind key="S-A-Up">
-      <action name="SendToDesktop">
-        <to>up</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
-    <keybind key="S-A-Down">
-      <action name="SendToDesktop">
-        <to>down</to>
-        <wrap>no</wrap>
-      </action>
-    </keybind>
-    -->
+
     <keybind key="A-1">
       <action name="GoToDesktop">
         <to>1</to>
@@ -286,104 +296,28 @@
         <to>4</to>
       </action>
     </keybind>
-    <keybind key="W-d">
-      <action name="ToggleShowDesktop"/>
-    </keybind>
+
     <!-- Keybindings for windows -->
+
     <keybind key="A-c">
       <action name="Close"/>
     </keybind>
-    <keybind key="A-Escape">
-      <action name="Lower"/>
-      <action name="FocusToBottom"/>
-      <action name="Unfocus"/>
-    </keybind>
+
     <keybind key="A-space">
       <action name="ShowMenu">
         <menu>client-menu</menu>
       </action>
     </keybind>
-    <!-- Take a screenshot of the current window with scrot when Alt+Print are pressed -->
-    <keybind key="Print">
-      <action name="Execute">
-        <command>flameshot gui</command>
-      </action>
-    </keybind>
+
     <!-- Keybindings for window switching -->
     <keybind key="A-Tab">
       <action name="NextWindow">
         <allDesktops>yes</allDesktops>
       </action>
     </keybind>
-    <!--
-    <keybind key="A-Tab">
-      <action name="NextWindow">
-        <finalactions>
-          <action name="Focus"/>
-          <action name="Raise"/>
-          <action name="Unshade"/>
-        </finalactions>
-      </action>
-    </keybind>
-    -->
-    <keybind key="A-S-Tab">
-      <action name="PreviousWindow">
-        <finalactions>
-          <action name="Focus"/>
-          <action name="Raise"/>
-          <action name="Unshade"/>
-        </finalactions>
-      </action>
-    </keybind>
-    <keybind key="C-A-Tab">
-      <action name="NextWindow">
-        <panels>yes</panels>
-        <desktop>yes</desktop>
-        <finalactions>
-          <action name="Focus"/>
-          <action name="Raise"/>
-          <action name="Unshade"/>
-        </finalactions>
-      </action>
-    </keybind>
-    <!-- Keybindings for window switching with the arrow keys -->
-    <keybind key="W-S-Right">
-      <action name="DirectionalCycleWindows">
-        <direction>right</direction>
-      </action>
-    </keybind>
-    <keybind key="W-S-Left">
-      <action name="DirectionalCycleWindows">
-        <direction>left</direction>
-      </action>
-    </keybind>
-    <keybind key="W-S-Up">
-      <action name="DirectionalCycleWindows">
-        <direction>up</direction>
-      </action>
-    </keybind>
-    <keybind key="W-S-Down">
-      <action name="DirectionalCycleWindows">
-        <direction>down</direction>
-      </action>
-    </keybind>
-    <!-- Keybindings for running applications -->
-    <keybind key="W-e">
-      <action name="Execute">
-        <startupnotify>
-          <enabled>true</enabled>
-          <name>Konqueror</name>
-        </startupnotify>
-        <command>kfmclient openProfile filemanagement</command>
-      </action>
-    </keybind>
-    <!-- Launch scrot when Print is pressed -->
-    <keybind key="Print">
-      <action name="Execute">
-        <command>scrot</command>
-      </action>
-    </keybind>
+
   </keyboard>
+
   <mouse>
     <dragThreshold>10</dragThreshold>
     <!-- number of pixels the mouse must move before a drag begins -->
@@ -673,7 +607,7 @@
           <to>next</to>
         </action>
       </mousebind>
-      <mousebind button="Left" action="Press">
+      <mousebind button="Left" action="Press">xset r rate 150 40
         <action name="Focus"/>
         <action name="Raise"/>
       </mousebind>
@@ -683,6 +617,7 @@
       </mousebind>
     </context>
     <context name="Root">
+
       <!-- Menus -->
       <mousebind button="Middle" action="Press">
         <action name="ShowMenu">
@@ -718,6 +653,7 @@
       </mousebind>
     </context>
   </mouse>
+
   <menu>
     <!-- You can specify more than one menu file in here and they are all loaded,
        just don't make menu ids clash or, well, it'll be kind of pointless -->

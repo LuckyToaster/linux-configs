@@ -1,33 +1,13 @@
-# COMPOSITOR
-picom --config ~/.config/picom/picom.conf --experimental-backends &
-
-# STATUS BAR
-$HOME/.config/polybar/launch.sh &
-
-# CONNECTIVITY
-nm-applet &
-blueman-applet &
-
-# WALLPAPER
-nitrogen --restore &
-
-# TOUCHPAD
-/home/lucky/.config/i3/setup_touchpad.js &
-
-# TERMINAL
+#!/bin/bash 
 export TERMINAL=kitty
 
-# .config/devilspie2/center.lua (centers windows on window creation)
+picom --config ~/.config/picom/picom.conf --experimental-backends &
+$HOME/.config/polybar/launch.sh &
+nm-applet &
+blueman-applet &
+nitrogen --restore &
+~/.local/bin/set-display &
+~/.local/bin/setup-touchpad &
 devilspie2 &
-
-# DISPLAYS
-#xrandr --output HDMI-1 --auto --rotate normal --left-of eDP-1 &
-#set-display &
-
-# KEYBOARD
-# toggle keyboard layouts (shitty /etc/default/keyboard is shitty)
-#setxkbmap -layout "us,es" -option "grp:alt_shift_toggle"
-xset r rate 150 40 &
-
-# having windows key run rofi
-sxhkd &
+(sleep 3 && setxkbmap -layout "us,es" -option "grp:win_space_toggle") &
+(sleep 3 && xset r rate 150 40) &
