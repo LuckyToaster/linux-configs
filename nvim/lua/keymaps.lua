@@ -60,10 +60,10 @@ set('n', '<leader>fb', '<Cmd>FzfLua buffers<cr>', "Fuzzy find open buffers")
 set('n', '<leader>fg', '<Cmd>FzfLua grep<cr>', "Fuzzy find using grep")
 
 -- GITSIGNS 
-set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>', "view changed lines")
-set('n', '<leader>gv', '<Cmd>Gitsigns preview_hunk_inline<CR>', "view changed lines")
-set('n', '<leader>gk', '<Cmd>Gitsigns prev_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', "view changed lines")
-set('n', '<leader>gj', '<Cmd>Gitsigns next_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', "view changed lines")
+set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>', "git blame")
+set('n', '<leader>gv', '<Cmd>Gitsigns preview_hunk_inline<CR>', "view hunk")
+set('n', '<leader>gk', '<Cmd>Gitsigns prev_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', "view previous hunk")
+set('n', '<leader>gj', '<Cmd>Gitsigns next_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', "view next hunk")
 
 -- DAP UI
 -- local dapui = require('dapui')

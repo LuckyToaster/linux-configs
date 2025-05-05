@@ -42,7 +42,7 @@
                   'Active' - where the active window is -->
   </placement>
   <theme>
-    <name>1977-Grey</name>
+    <name>Nightmare</name>
     <titleLayout>IMC</titleLayout>
     <!--
       available characters are NDSLIMC, each can occur at most once.
@@ -179,18 +179,11 @@
   <keyboard>
     <chainQuitKey>C-g</chainQuitKey>
     <!-- My Keybindings -->
-    <keybind key="A-d">
-      <action name="Execute">
-        <command>rofi -show drun -show-icons</command>
-      </action>
-    </keybind>
-
     <keybind key="A-Return">
       <action name="Execute">
         <command>kitty</command>
       </action>
     </keybind>
-
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
         <command>brightnessctl set +10%</command>
@@ -246,6 +239,7 @@
         <wrap>no</wrap>
       </action>
     </keybind>
+
     <keybind key="S-A-Left">
       <action name="SendToDesktop">
         <to>left</to>
@@ -258,6 +252,7 @@
         <wrap>no</wrap>
       </action>
     </keybind>
+    <!--
     <keybind key="S-A-Up">
       <action name="SendToDesktop">
         <to>up</to>
@@ -270,6 +265,7 @@
         <wrap>no</wrap>
       </action>
     </keybind>
+    -->
     <keybind key="A-1">
       <action name="GoToDesktop">
         <to>1</to>
@@ -294,7 +290,7 @@
       <action name="ToggleShowDesktop"/>
     </keybind>
     <!-- Keybindings for windows -->
-    <keybind key="A-F4">
+    <keybind key="A-c">
       <action name="Close"/>
     </keybind>
     <keybind key="A-Escape">
@@ -308,12 +304,18 @@
       </action>
     </keybind>
     <!-- Take a screenshot of the current window with scrot when Alt+Print are pressed -->
-    <keybind key="A-Print">
+    <keybind key="Print">
       <action name="Execute">
-        <command>scrot -s</command>
+        <command>flameshot gui</command>
       </action>
     </keybind>
     <!-- Keybindings for window switching -->
+    <keybind key="A-Tab">
+      <action name="NextWindow">
+        <allDesktops>yes</allDesktops>
+      </action>
+    </keybind>
+    <!--
     <keybind key="A-Tab">
       <action name="NextWindow">
         <finalactions>
@@ -323,6 +325,7 @@
         </finalactions>
       </action>
     </keybind>
+    -->
     <keybind key="A-S-Tab">
       <action name="PreviousWindow">
         <finalactions>
@@ -743,15 +746,16 @@
     <!-- show the manage desktops section in the client-list-(combined-)menu -->
   </menu>
   <applications>
-
-
     <application name="Polybar">
-        <window-type>dock</window-type>   <!-- Polybar should be treated as a dock window -->
-        <layer>dock</layer>               <!-- Dock windows should stay below fullscreen windows -->
-        <sticky>true</sticky>             <!-- Make sure Polybar is sticky across workspaces -->
-        <skip-taskbar>true</skip-taskbar> <!-- Ensure Polybar doesn't appear in taskbar -->
+      <window-type>dock</window-type>
+      <!-- Polybar should be treated as a dock window -->
+      <layer>dock</layer>
+      <!-- Dock windows should stay below fullscreen windows -->
+      <sticky>true</sticky>
+      <!-- Make sure Polybar is sticky across workspaces -->
+      <skip-taskbar>true</skip-taskbar>
+      <!-- Ensure Polybar doesn't appear in taskbar -->
     </application>
-
     <!--
   # this is an example with comments through out. use these to make your
   # own rules, but without the comments of course.

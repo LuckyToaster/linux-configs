@@ -1,16 +1,33 @@
+# COMPOSITOR
 picom --config ~/.config/picom/picom.conf --experimental-backends &
+
+# STATUS BAR
 $HOME/.config/polybar/launch.sh &
+
+# CONNECTIVITY
 nm-applet &
 blueman-applet &
-brave-browser & 
-nitrogen --restore &
-xrandr --output HDMI-1 --auto --rotate normal --left-of eDP-1 &
-/home/lucky/.config/i3/setup_touchpad.js &
-xset r rate 150 40 &
 
-# Set preferred terminal to Kitty
+# WALLPAPER
+nitrogen --restore &
+
+# TOUCHPAD
+/home/lucky/.config/i3/setup_touchpad.js &
+
+# TERMINAL
 export TERMINAL=kitty
 
 # .config/devilspie2/center.lua (centers windows on window creation)
 devilspie2 &
 
+# DISPLAYS
+#xrandr --output HDMI-1 --auto --rotate normal --left-of eDP-1 &
+#set-display &
+
+# KEYBOARD
+# toggle keyboard layouts (shitty /etc/default/keyboard is shitty)
+#setxkbmap -layout "us,es" -option "grp:alt_shift_toggle"
+xset r rate 150 40 &
+
+# having windows key run rofi
+sxhkd &
