@@ -6,8 +6,7 @@ $HOME/.config/polybar/launch.sh &
 nm-applet &
 blueman-applet &
 nitrogen --restore &
+devilspie2 &
 ~/.local/bin/set-display &
 ~/.local/bin/setup-touchpad &
-devilspie2 &
-(sleep 3 && setxkbmap -layout "us,es" -option "grp:win_space_toggle") &
-(sleep 3 && xset r rate 150 40) &
+~/.local/bin/set-keyboard &

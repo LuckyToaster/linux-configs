@@ -1,12 +1,23 @@
+[DONE] alt + d opens rofi
 [DONE] alt enter opens terminal
+[DONE] alt e opens file explorer
+[DONE] alt b opens brave
+
+[DONE] alt c closes window
+[DONE] alt q exit openbox
+
+[DONE] alt space opens right click menu of window
+[DONE] windows + space switches keyboard layout
+[DONE] fn + print
+
 [DONE] alt tab switches all windows
+
 [DONE] alt number switches to workspace
 [DONE] alt + ctrl + arrow keys moves between workspaces
 [DONE] alt + shift + arrows moves to desktop
-[DONE] fn + print
 
-WINDOWS OPENS ROFI FFS
-
-toggle maximize window
-close window -> ctrl + c right?
+Add power button on polybar
+add nighlight on polybara (redshift -O 4000, redshift -x)
+make custom icon for wifi and bluetooth
+fix brightness, like 2% 5% 10% 25% 50% 75% 100% brightness 
 
