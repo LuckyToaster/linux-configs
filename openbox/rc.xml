@@ -128,7 +128,7 @@
       <name>3</name>
       <name>4</name>
     </names>
-    <popupTime>600</popupTime>
+    <popupTime>0</popupTime>
     <!-- The number of milliseconds to show the popup for when switching
        desktops.  Set this to 0 to disable the popup. -->
   </desktops>
@@ -209,12 +209,12 @@
     </keybind>
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>brightnessctl set +10%</command>
+        <command>/home/lucky/.local/bin/set-brightness inc</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>brightnessctl set 10%-</command>
+        <command>/home/lucky/.local/bin/set-brightness dec</command>
       </action>
     </keybind>
     <keybind key="XF86AudioRaiseVolume">
