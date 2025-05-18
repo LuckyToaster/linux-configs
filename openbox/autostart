@@ -2,9 +2,10 @@
 export TERMINAL=kitty
 
 picom --config ~/.config/picom/picom.conf --experimental-backends &
+#picom --config ~/.config/picom/picom.conf &
+
 $HOME/.config/polybar/launch.sh &
 nm-applet &
-blueman-applet &
 nitrogen --restore &
 devilspie2 &
 ~/.local/bin/set-display &
