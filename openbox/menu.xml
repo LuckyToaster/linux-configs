@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openbox_menu xmlns="https://openbox.org/" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://openbox.org/">
     <menu id="root-menu" label="Openbox Menu">
-        <item label="Terminal">
+        <item label=" Terminal">
             <action name="Execute">
                 <command>kitty</command>
             </action>
         </item>
 
-        <item label="Web Browser">
+        <item label="󰖟 Web Browser">
             <action name="Execute">
                 <command>brave-browser</command>
             </action>
         </item>
 
-        <item label="File Browser">
+        <item label=" File Browser">
             <action name="Execute">
                 <command>nautilus</command>
             </action>
         </item>
 
-
-        <item label="Steam">
+        <item label=" Steam">
             <action name="Execute">
                 <command>steam</command>
             </action>
@@ -44,21 +43,26 @@
 
         <separator/>
 
-        <item label="Reboot">
+        <item label="󰑓 Reboot">
             <action name="Execute">
                 <command>systemctl reboot</command>
             </action>
         </item>
 
-        <item label="Shutdown">
+        <item label="⏻ Shutdown">
             <action name="Execute">
                 <command>systemctl poweroff</command>
             </action>
         </item>
 
-        <item label="Exit">
-            <action name="Exit"/>
+        <item label="󰒲 Sleep">
+            <action name="Execute">
+                <command>systemctl sleep</command>
+            </action>
         </item>
 
+        <item label=" Exit">
+            <action name="Exit"/>
+        </item>
     </menu>
 </openbox_menu>

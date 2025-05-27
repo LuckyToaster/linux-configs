@@ -1,0 +1,24 @@
+
+* {
+    background:     #1e1e1e;
+    background-alt: #1e1e1e;
+    foreground:     #d4d4d4;
+    selected:       #569cd6;
+    active:         #9cdcfe;
+    urgent:         #d16969;
+}
+
+/*
+background = #1e1e1e
+foreground = #d4d4d4
+lightblue = #9cdcfe
+blue = #569CD6
+bluegreen = #3Ec9B0
+green = #608B4E
+yellow = #dcdcaa
+yelloworange = #d7ba7d
+orange = #ce9178
+lightred = #d16969
+red = #f44747
+pink = #c586c0
+*/

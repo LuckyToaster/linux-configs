@@ -36,7 +36,8 @@ require("lazy").setup({
         { "folke/which-key.nvim", event = "VeryLazy", keys = {{"<leader>?", function() require("which-key").show({ global = false }) end, desc = "Buffer Local Keymaps (which-key)"}}},
         -- Render markdown inside nvim
         { 'MeanderingProgrammer/render-markdown.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' } },
-        { 'rcarriga/nvim-notify' }
+        { 'rcarriga/nvim-notify' },
+        { 'github/copilot.vim' }
         -- Debugger for nvim (don't know how to setup)
         --{ "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
     },

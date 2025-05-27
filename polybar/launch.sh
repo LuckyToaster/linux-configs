@@ -12,4 +12,13 @@ polybar mybar 2>&1 | tee -a /tmp/polybar1.log & disown
 sleep 1
 wmctrl -r "Polybar" -b add,below
 
+# set the power profile icon
+profile=$(powerprofilesctl get)
+if [[ "$profile" == "performance" ]]; then
+    polybar-msg hook powerprofile 2
+else
+    polybar-msg hook powerprofile 1
+fi
+
 echo "Bar launched..."
+

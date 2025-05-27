@@ -1,0 +1,189 @@
+[colors]
+;background = #1c1c1c
+;background = #a6000000
+; foreground = #FFFFFFFF
+; foreground-alt = #fbf1c7
+; primary = #FFFFFFFF
+; secondary = #8ec07c
+; alert = #fb4934
+background = #1e1e1e
+foreground = #d4d4d4
+red = #f44747
+blue = #569CD6
+orange = #d7ba7d
+green = #608B4E
+
+[settings]
+screenchange-reload = true
+
+[bar/mybar]
+width = 100%
+height = 32
+fixed-center = true
+background = ${colors.background}
+foreground = ${colors.foreground}
+line-size = 3
+line-color = #f00
+bottom = true
+padding-left = 1
+padding-right = 2
+module-margin-left = 1
+module-margin-right = 1
+enable-ipc = true
+;separator = |
+
+font-0 = 0xProto Nerd Font Mono:style=Regular:size=11;2
+font-1 = 0xProto Nerd Font Mono:style=Regular:size=12;2
+font-2 = 0xProto Nerd Font Mono:style=Regular:size=14;3
+font-3 = 0xProto Nerd Font Mono:style=Regular:size=16;4
+font-4 = 0xProto Nerd Font Mono:style=Regular:size=18;4
+font-5 = 0xProto Nerd Font Mono:style=Regular:size=20;5
+font-6 = 0xProto Nerd Font Mono:style=Regular:size=22;5
+font-7 = 0xProto Nerd Font Mono:style=Regular:size=24;6
+
+modules-left = ewmh filesystem memory cpu 
+modules-center = date
+modules-right = powermenu tray nightlight xkeyboard pulseaudio battery 
+
+override-redirect = false
+
+
+[module/date]
+type = internal/date
+interval = 5
+date = %A %d %b %H:%M
+format = <label>
+label = %date%
+
+[module/cpu]
+type = internal/cpu
+format-prefix = 
+format-prefix-font = 4
+label = " %percentage%%"
+label-font = 1
+
+[module/memory]
+type = internal/memory
+format-prefix = 
+format-prefix-font = 4
+label = " %used%"
+label-font = 1
+
+[module/filesystem]
+type = internal/fs
+mount-0 = / 
+fixed-values = true
+warn-percentage = 75
+format-mounted-prefix =  
+format-mounted-prefix-font = 3
+label-mounted = " %percentage_free%%"
+label-mounted-font = 1
+
+[module/battery]
+type = custom/script
+exec = ~/.config/polybar/battery_status.sh
+interval = 5
+format-suffix = ⚡
+format-suffix-font = 2
+;format-suffix = %{F#ffff00}⚡%{F-}
+;label = "%{F#ffff00}%output% %{F-}"
+label = "%output% "
+label-font = 1
+
+[module/pulseaudio]
+type = internal/pulseaudio
+use-ui-max = true
+interval = 10 
+click-right = pavucontrol
+reverse-scroll = false
+label-muted =  
+label-muted-font = 4
+format-volume-suffix= 
+format-volume-suffix-font = 4
+label-volume = "%percentage%% "
+format-volume = <label-volume>
+
+[module/backlight]
+type = internal/backlight
+enable-scroll = true
+scroll-interval = 10
+reverse-scroll = true
+format-suffix = %{F#ffff00}%{F-}
+format-suffix-font = 5
+label = "%{F#ffff00}%percentage%% %{F-}"
+label-font = 1
+
+[module/nightlight]
+type = custom/ipc
+format = <output>
+format-font = 3
+hook-0 = echo ""  
+hook-1 = echo ""  
+initial = 1
+click-left = /home/lucky/.local/bin/toggle-nightlight
+
+[module/xkeyboard]
+type = internal/xkeyboard
+format-suffix = " "
+format-suffix-font = 4
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+; module-margin-left = 0
+; module-margin-right = 0
+; module-padding-left = 0
+; module-padding-right = 0
+
+[module/powermenu]
+type = custom/menu
+expand-right = false
+label-open = ⏻
+label-open-font = 3
+label-close = 
+label-close-font = 5
+label-separator = " "
+format-foreground = #ff0000
+menu-0-0 = 󰒲
+menu-0-0-font = 5
+menu-0-0-exec = systemctl suspend
+menu-0-2 = ⏻
+menu-0-2-font = 3
+menu-0-2-exec = systemctl poweroff
+menu-0-1 = 
+menu-0-1-font = 3
+menu-0-1-exec = systemctl reboot
+
+[module/ewmh]
+type = internal/xworkspaces
+pin-workspaces = true
+group-by-monitor = false
+enable-click = false
+enable-scroll = false
+format = <label-state>
+label-active = %icon%
+label-active-underline = ${colors.foreground}
+label-active-padding = 1
+label-occupied = %icon%
+label-occupied-padding = 1
+label-occupied-underline = #ff000000
+label-urgent =
+label-empty = %icon%
+label-empty-padding = 1
+icon-0 = 1;%{F#ffffff}󰣎%{F-}
+icon-1 = 2;%{F#ff0000}󰋑%{F-}
+icon-2 = 3;%{F#ffffff}󰣑%{F-}
+icon-3 = 4;%{F#ff0000}󰣏%{F-}
+icon-default = fuckshit
+icon-0-font = 8
+icon-1-font = 8
+icon-2-font = 8
+icon-3-font = 8
+icon-3-color = #ff0000
+
+[module/tray]
+type = internal/tray
+format-margin = 0px
+tray-spacing = 6px
+tray-padding = 0px
+tray-size = 60%
+tray-foreground = #ffffff
+tray-background = ${root.background}

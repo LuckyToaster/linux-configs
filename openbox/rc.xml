@@ -57,57 +57,57 @@
     <keepBorder>yes</keepBorder>
     <animateIconify>no</animateIconify>
     <font place="ActiveWindow">
-      <name>sans</name>
-      <size>8</size>
+      <name>JetBrains Mono</name>
+      <size>9</size>
       <!-- font size in points -->
-      <weight>bold</weight>
+      <weight>Normal</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="InactiveWindow">
-      <name>sans</name>
+      <name>JetBrains Mono</name>
       <size>8</size>
       <!-- font size in points -->
-      <weight>bold</weight>
+      <weight>Normal</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="MenuHeader">
-      <name>sans</name>
+      <name>JetBrains Mono</name>
       <size>9</size>
       <!-- font size in points -->
-      <weight>normal</weight>
+      <weight>Normal</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="MenuItem">
-      <name>sans</name>
-      <size>9</size>
+      <name>JetBrains Mono</name>
+      <size>10</size>
       <!-- font size in points -->
-      <weight>normal</weight>
+      <weight>Normal</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="ActiveOnScreenDisplay">
-      <name>sans</name>
+      <name>JetBrains Mono</name>
       <size>9</size>
       <!-- font size in points -->
-      <weight>bold</weight>
+      <weight>Normal</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
     </font>
     <font place="InactiveOnScreenDisplay">
-      <name>sans</name>
+      <name>JetBrains Mono</name>
       <size>9</size>
       <!-- font size in points -->
-      <weight>bold</weight>
+      <weight>Normal</weight>
       <!-- 'bold' or 'normal' -->
-      <slant>normal</slant>
+      <slant>Normal</slant>
       <!-- 'italic' or 'normal' -->
     </font>
   </theme>
@@ -181,12 +181,12 @@
     <!-- My Keybindings -->
     <keybind key="A-d">
       <action name="Execute">
-        <command>rofi -show drun -theme ~/.config/rofi/launchers/type-3/style-2.rasi</command>
+        <command>rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-5.rasi</command>
       </action>
     </keybind>
     <keybind key="A-Return">
       <action name="Execute">
-        <command>kitty</command>
+        <command>kitty --start-as maximized --config /home/lucky/.config/kitty/kitty_no_window_decorations.conf</command>
       </action>
     </keybind>
     <keybind key="A-e">
@@ -219,12 +219,12 @@
     </keybind>
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>pactl set-sink-volume @DEFAULT_SINK@ +10%</command>
+        <command>pactl set-sink-volume @DEFAULT_SINK@ +20%</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>pactl set-sink-volume @DEFAULT_SINK@ -10%</command>
+        <command>pactl set-sink-volume @DEFAULT_SINK@ -20%</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
@@ -663,6 +663,10 @@
     <!-- show the manage desktops section in the client-list-(combined-)menu -->
   </menu>
   <applications>
+    <!-- <application name="kitty"> -->
+    <!--   <decor>no</decor> -->
+    <!--   <maximized>yes</maximized> -->
+    <!-- </application> -->
     <application name="Polybar">
       <window-type>dock</window-type>
       <!-- Polybar should be treated as a dock window -->
