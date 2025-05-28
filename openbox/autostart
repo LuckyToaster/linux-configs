@@ -2,14 +2,14 @@
 export TERMINAL=kitty
 
 picom --config ~/.config/picom/picom.conf --experimental-backends &
-#picom --config ~/.config/picom/picom.conf --backend glx &
-#picom --config ~/.config/picom/picom.conf --legacy-backends --transparent-clipping &
-#picom --config ~/.config/picom/picom.conf &
 
-$HOME/.config/polybar/launch.sh &
 nm-applet &
+protonvpn-app &
 devilspie2 &
+
 ~/.local/bin/set-display &
 ~/.local/bin/setup-touchpad &
 ~/.local/bin/set-keyboard &
+~/.local/bin/watch-power &
 nitrogen --restore &
+$HOME/.config/polybar/launch.sh &
