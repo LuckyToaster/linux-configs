@@ -58,3 +58,4 @@ require('nvim-tree').setup({
     view = { width = 40 }
 })
 
+require('notify').setup({})
