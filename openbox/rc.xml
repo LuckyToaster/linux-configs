@@ -181,7 +181,8 @@
     <!-- My Keybindings -->
     <keybind key="A-d">
       <action name="Execute">
-        <command>rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-5.rasi</command>
+      <!--<command>rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-5.rasi</command>-->
+        <command>rofi -show drun</command>
       </action>
     </keybind>
     <keybind key="A-Return">
@@ -219,12 +220,12 @@
     </keybind>
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>pactl set-sink-volume @DEFAULT_SINK@ +20%</command>
+        <command>pactl set-sink-volume @DEFAULT_SINK@ +10%</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>pactl set-sink-volume @DEFAULT_SINK@ -20%</command>
+        <command>pactl set-sink-volume @DEFAULT_SINK@ -10%</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">

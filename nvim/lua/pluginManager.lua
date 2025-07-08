@@ -19,36 +19,24 @@ vim.opt.rtp:prepend(lazypath)
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {
-        -- lsp, syntax highlighting ...
+        -- lsp, syntax highlighting, and copilot
         { 'williamboman/mason.nvim' },
         { 'williamboman/mason-lspconfig.nvim' },
         { 'neovim/nvim-lspconfig', lazy = false },
         { 'nvim-treesitter/nvim-treesitter' },
+        { 'github/copilot.vim' },
         -- Git integration 
         { 'lewis6991/gitsigns.nvim' }, -- git stuff
         -- Navigation and UI
         { "ibhagwan/fzf-lua", dependencies = { "nvim-tree/nvim-web-devicons" } },
         { 'nvim-tree/nvim-tree.lua', lazy = false, dependencies = { 'nvim-tree/nvim-web-devicons' } },
         { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
-        { 'gorbit99/codewindow.nvim' }, -- leader mm (minimap toggle) leader mf (minimap focus)
         { 'Mofiqul/vscode.nvim' }, -- colorscheme
         { "sphamba/smear-cursor.nvim", opts = {} },
         { "folke/which-key.nvim", event = "VeryLazy", keys = {{"<leader>?", function() require("which-key").show({ global = false }) end, desc = "Buffer Local Keymaps (which-key)"}}},
         -- Render markdown inside nvim
         { 'MeanderingProgrammer/render-markdown.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' } },
-        {
-            "folke/noice.nvim",
-            event = "VeryLazy",
-            opts = {},
-            dependencies = {
-                "MunifTanjim/nui.nvim",
-                -- OPTIONAL:
-                --   `nvim-notify` is only needed, if you want to use the notification view.
-                --   If not available, we use `mini` as the fallback
-                "rcarriga/nvim-notify",
-            }
-        },
-        { 'github/copilot.vim' }
+        --{ "echasnovski/mini.notify", version = '*' }
         -- Debugger for nvim (don't know how to setup)
         --{ "rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"} }
     },

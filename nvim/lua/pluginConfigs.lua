@@ -37,12 +37,6 @@ require('lualine').setup({
     },
 })
 
-
--- CODE WINDOW
-local codewindow = require('codewindow')
-codewindow.setup()
-codewindow.apply_default_keybinds()
-
 -- FZF-LUA
 require('fzf-lua').setup({ 'border-fused' })
 
@@ -58,4 +52,4 @@ require('nvim-tree').setup({
     view = { width = 40 }
 })
 
-require('notify').setup({})
+--require('mini.notify').setup({})

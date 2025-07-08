@@ -12,4 +12,5 @@ devilspie2 &
 ~/.local/bin/set-keyboard &
 ~/.local/bin/watch-power &
 nitrogen --restore &
+
 $HOME/.config/polybar/launch.sh &
