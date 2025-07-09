@@ -55,7 +55,7 @@
       D: omnipresent (on all desktops).
   -->
     <keepBorder>yes</keepBorder>
-    <animateIconify>no</animateIconify>
+    <animateIconify>yes</animateIconify>
     <font place="ActiveWindow">
       <name>JetBrains Mono</name>
       <size>9</size>
@@ -159,7 +159,7 @@
     <right>0</right>
   </margins>
   <dock>
-    <position>TopLeft</position>
+    <position>Bottom</position>
     <!-- (Top|Bottom)(Left|Right|)|Top|Bottom|Left|Right|Floating -->
     <floatingX>0</floatingX>
     <floatingY>0</floatingY>
@@ -168,7 +168,7 @@
     <!-- 'Above', 'Normal', or 'Below' -->
     <direction>Vertical</direction>
     <!-- 'Vertical' or 'Horizontal' -->
-    <autoHide>no</autoHide>
+    <autoHide>yes</autoHide>
     <hideDelay>300</hideDelay>
     <!-- in milliseconds (1000 = 1 second) -->
     <showDelay>300</showDelay>
@@ -181,13 +181,12 @@
     <!-- My Keybindings -->
     <keybind key="A-d">
       <action name="Execute">
-      <!--<command>rofi -show drun -theme ~/.config/rofi/launchers/type-1/style-5.rasi</command>-->
         <command>rofi -show drun</command>
       </action>
     </keybind>
     <keybind key="A-Return">
       <action name="Execute">
-        <command>kitty --start-as maximized --config /home/lucky/.config/kitty/kitty_no_window_decorations.conf</command>
+      <command>kitty --start-as maximized</command>
       </action>
     </keybind>
     <keybind key="A-e">
