@@ -1,0 +1,13 @@
+
+# FZF CONFIG (put this in .bashrc)
+eval "$(fzf --bash)"
+export FZF_COMPLETION_OPTS="--layout reverse --height 100% --preview 'bat --color=always --style=numbers --line-range :500 {}'"
+FZF_IGNORE_DIRS="--exclude .local --exclude .cache --exclude env --exclude node_modules --exclude __pycache__ --exclude .pytest_cache"
+
+_fzf_compgen_path() {
+    fd --type f $FZF_IGNORE_DIRS
+}
+
+_fzf_compgen_dir() {
+    fd --type d $FZF_IGNORE_DIRS
+}
