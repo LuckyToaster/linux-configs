@@ -1,0 +1,17 @@
+{
+  "provider": {
+    "ollama": {
+      "name": "Ollama",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://0.0.0.0:11434/v1"
+      },
+      "models": {
+        "qwen2.5-coder:3b": { "_launch": true, "name": "qwen2.5-coder:3b", "tools": true },
+        "llama3.2:latest-16k": { "_launch": true, "name": "llama3.2:latest-16k", "tools": true }
+      }
+    }
+  }
+
+    "opencode-websearch-cited@1.2.0"
+}

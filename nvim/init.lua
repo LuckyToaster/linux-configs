@@ -29,14 +29,19 @@ vim.opt.scrolloff = 15                 -- when scrolling, prevent cursor from be
 vim.opt.sidescrolloff = 30
 vim.opt.splitright = true
 vim.opt.timeoutlen = 300               -- maximum delay to register a keymap
+vim.opt.termguicolors = true
+-- vim.opt.autochdir = true               -- important for FZF **TAB functionality
 vim.cmd [[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]] -- stop auto commenting
 
-require('pluginManager')
-require('pluginConfigs')
+vim.o.winborder = 'rounded' -- makes all hover / floating windows have rounded borders
+
+-- require('pluginManager')
+-- require('pluginConfigs')
+require('plugins')
 require('keymaps')
 require('misc').autocmds()
 
 vim.o.background = 'dark'
-vim.cmd.syntax "off"
 vim.cmd.colorscheme "vscode"
+-- vim.cmd.colorscheme "catppuccin-nvim"
 

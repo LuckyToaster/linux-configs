@@ -60,10 +60,27 @@ set('n', '<leader>ft', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
 -- FZF-LUA
 set('n', '<leader>ff', '<Cmd>FzfLua files<cr>', "Fuzzy find files from CWD")
 set('n', '<leader>fh', '<Cmd>FzfLua files cwd=/home/lucky/<CR>', "Fuzzy find files from ~")
-set('n', '<leader>fg', '<Cmd>FzfLua rg<cr>', "Fuzzy find using ripgrep")
+set('n', '<leader>fg', '<Cmd>FzfLua live_grep<cr>', "Fuzzy find using ripgrep")
 
--- GITSIGNS 
+-- GITSIGNS
 set('n', '<leader>gb', '<cmd>Gitsigns toggle_current_line_blame<CR>', "git blame")
 set('n', '<leader>gv', '<Cmd>Gitsigns preview_hunk_inline<CR>', "view hunk")
 set('n', '<leader>gk', '<Cmd>Gitsigns prev_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', "view previous hunk")
 set('n', '<leader>gj', '<Cmd>Gitsigns next_hunk<CR><Cmd>Gitsigns preview_hunk_inline<CR>', "view next hunk")
+
+-- Close nvim-tree before quitting with :q
+vim.api.nvim_create_user_command('Q', function()
+    local api = require('nvim-tree.api')
+    if api.tree.is_visible() then
+        api.tree.close()
+    end
+    vim.cmd('quit')
+end, {})
+
+-- Make :q work like :Q
+vim.cmd('cabbrev q Q')
+
+-- Which Key
+vim.keymap.set('n', '<leader>?', function()
+    require('which-key').show({ global = false })
+end, { desc = 'Buffer Local Keymaps (which-key)' })

@@ -10,14 +10,6 @@ M.autocmds = function ()
             vim.opt_local.relativenumber = false -- Disable relative line numbers
         end,
     })
-
-    -- Make sure :help always opens in new buffer in current window (same as ':help something | only')
-    -- vim.api.nvim_create_autocmd("FileType", {
-    --     pattern = "help",
-    --     callback = function()
-    --         vim.cmd("only")
-    --     end
-    -- })
 end
 
 
@@ -44,12 +36,5 @@ M.git.push = function()
     local command = '!git push https://luckytoaster'.. ':' .. token .. '@' .. repo_url:sub(9)
     vim.cmd(command)
 end
-
-
--- make lsp windows wider
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
---   vim.lsp.handlers.hover,
---   { max_width = 60 }
--- )
 
 return M

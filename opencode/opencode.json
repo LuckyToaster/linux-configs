@@ -1,0 +1,37 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-gemini-auth@latest"
+  ],
+  "permission": {
+    "edit": "ask",
+    "bash": {
+        "*": "ask",
+        "ls *": "allow",
+        "cat *": "allow"
+    },
+    "glob": "allow",
+    "grep": "allow",
+    "question": "allow",
+    "read": "allow",
+    "webfetch": "allow",
+    "websearch": "allow"
+  },
+  "model": "gemini-3.5-flash",
+  "provider": { "google": {} },
+  "mcp": {
+    "text-to-speech": {
+        "command": [ 
+            "/home/lucky/Documents/projects/tts_tool/.venv/bin/python",
+            "/home/lucky/Documents/projects/tts_tool/main.py"
+        ],
+        "enabled": true,
+        "type": "local"
+    }
+  },
+  "agent": {
+    "git-workflow-master": {
+      "description": "Expert in Git workflows, branching strategies, and version control best practices"
+    }
+  }
+}

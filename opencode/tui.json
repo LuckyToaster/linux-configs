@@ -1,0 +1,8 @@
+{
+  "attention": {
+    "enabled": true,
+    "notifications": false,
+    "sound": false,
+    "volume": 1
+  }
+}
