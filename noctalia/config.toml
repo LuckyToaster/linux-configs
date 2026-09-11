@@ -1,0 +1,8 @@
+[theme]
+mode = "dark"
+custom_palette = "VSCode"
+
+[bar.default]
+position = "top"
+shadow = "false"
+font_family = "JetBrainsMono Nerd Font"
