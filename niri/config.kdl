@@ -13,7 +13,7 @@ input {
 
             // For example:
             layout "us,es"
-            options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
+            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
 
             // If this section is empty, niri will fetch xkb settings
             // from org.freedesktop.locale1. You can control these using
@@ -80,6 +80,12 @@ output "eDP-1" {
     position x=1280 y=0
 }
 
+output "HDMI-A-1" {
+    mode "2560x1440@60"
+    variable-refresh-rate
+    scale 1
+}
+
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     background-color "transparent"
@@ -100,9 +106,6 @@ layout {
         proportion 0.5
     }
 
-    // You can change the default width of the new windows.
-    // If you leave the brackets empty, the windows themselves will decide their initial width.
-    // default-column-width { proportion 0.5; }
     default-column-width {}
 
     focus-ring {
@@ -148,9 +151,6 @@ hotkey-overlay {
     skip-at-startup
 }
 
-// You can also set this to null to disable saving screenshots to disk.
-
-
 // https://niri-wm.github.io/niri/Configuration:-Animations
 animations {
     // Uncomment to turn off all animations.
@@ -162,15 +162,12 @@ animations {
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
-    // This app-id regular expression will work for both:
-    // - host Firefox (app-id is "firefox")
-    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
     match app-id=r#"brave$"# title="^Picture-in-Picture$"
     open-floating true
 }
 
 window-rule {
-    match app-id="brave$"
+    match app-id="brave"
     match app-id="^kitty$"
     default-column-width { proportion 0.5; } 
 }
@@ -179,15 +176,9 @@ window-rule {
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
-    // opacity 0.90
+    opacity 1.0
 }
 
-window-rule {
-  match app-id="dev.noctalia.Noctalia"
-  open-floating true
-  default-column-width { fixed 1080; }
-  default-window-height { fixed 920; }
-}
 
 binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
