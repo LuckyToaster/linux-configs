@@ -8,18 +8,9 @@
 input {
     keyboard {
         xkb {
-            // You can set rules, model, layout, variant and options.
-            // For more information, see xkeyboard-config(7).
-
-            // For example:
             layout "us,es"
-            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
-
-            // If this section is empty, niri will fetch xkb settings
-            // from org.freedesktop.locale1. You can control these using
-            // localectl set-x11-keymap.
+            options "grp:win_space_toggle" 
         }
-
         // Enable numlock on startup, omitting this setting disables it.
         numlock
         repeat-delay 300
@@ -35,39 +26,20 @@ input {
         // scroll-method "two-finger"
         // disabled-on-external-mouse
     }
-
-    // Uncomment this to make the mouse warp to the center of newly focused windows.
-    // warp-mouse-to-focus
-
-    // Focus windows and outputs automatically when moving the mouse into them.
-    // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
-    // focus-follows-mouse max-scroll-amount="90%" // brodie robertson
-    // focus-follows-mouse
 }
 
 // https://niri-wm.github.io/niri/Configuration:-Outputs
-// Remember to uncomment the node by removing "/-"!
 output "eDP-1" {
     // Uncomment this line to disable this output.
     // off
-
-    // Resolution and, optionally, refresh rate of the output.
-    // The format is "<width>x<height>" or "<width>x<height>@<refresh rate>".
-    // If the refresh rate is omitted, niri will pick the highest refresh rate
-    // for the resolution.
-    // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
     mode "1920x1080@60"
     variable-refresh-rate
-
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
     scale 1
-
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
     transform "normal"
-
     // Position of the output in the global coordinate space.
     // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
     // The cursor can only move between directly adjacent outputs.
@@ -90,7 +62,6 @@ output "HDMI-A-1" {
 layout {
     background-color "transparent"
     gaps 12
-
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
@@ -100,34 +71,20 @@ layout {
     // center-focused-column "never"
     // center-focused-column "always"
     always-center-single-column
-
-    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
-    preset-column-widths {
-        proportion 0.5
-    }
-
     default-column-width {}
-
     focus-ring {
         off
         width 2
         active-color "#7fc8ff"
         inactive-color "#505050"
     }
-
-    // You can also add a border. It's similar to the focus ring, but always visible.
     border {
-        // The settings are the same as for the focus ring.
-        // If you enable the border, you probably want to disable the focus ring.
-        // off
         width 3
         active-color "#ffc87f"
         inactive-color "#505050"
         // Color of the border around windows that request your attention.
         urgent-color "#9b0000"
     }
-
-    // You can enable drop shadows for windows.
     shadow {
         // Uncomment the next line to enable shadows.
         // on
@@ -172,13 +129,11 @@ window-rule {
     default-column-width { proportion 0.5; } 
 }
 
-
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
     opacity 1.0
 }
-
 
 binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
