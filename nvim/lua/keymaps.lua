@@ -36,7 +36,6 @@ set('n', '<C-up>', '<cmd>horizontal resize +4<CR>', "resize splits with 'control
 set('n', '<C-down>', '<cmd>horizontal resize -4<CR>', "resize splits with 'control + arrow keys'")
 
 -- LSP
-
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)

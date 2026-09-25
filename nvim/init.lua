@@ -35,13 +35,8 @@ vim.cmd [[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatop
 
 vim.o.winborder = 'rounded' -- makes all hover / floating windows have rounded borders
 
--- require('pluginManager')
--- require('pluginConfigs')
 require('plugins')
+require('noctalia_sync')
 require('keymaps')
 require('misc').autocmds()
-
-vim.o.background = 'dark'
-vim.cmd.colorscheme "vscode"
--- vim.cmd.colorscheme "catppuccin-nvim"
 

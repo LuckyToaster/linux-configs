@@ -27,10 +27,16 @@ require("lazy").setup({
         { 'lewis6991/gitsigns.nvim' },
         -- UI
         { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
+        -- { 'xiyaowong/transparent.nvim' },
+        -- colorschemes
         { 'Mofiqul/vscode.nvim' },
+        { 'folke/tokyonight.nvim' },
+        { 'morhetz/gruvbox' },
+        { 'catppuccin/nvim' },
+        { 'mofiqul/dracula.nvim' },
         -- Navigation 
-        { 'ibhagwan/fzf-lua', dependencies = { 'nvim-tree/nvim-web-devicons' } },
         { 'nvim-tree/nvim-tree.lua', lazy = false, dependencies = { 'nvim-tree/nvim-web-devicons' } },
+        { 'ibhagwan/fzf-lua', dependencies = { 'nvim-tree/nvim-web-devicons' } },
         { 'folke/which-key.nvim', event = 'VeryLazy', keys = {{'<leader>?', function() require('which-key').show({ global = false }) end, desc = 'Buffer Local Keymaps (which-key)'} } },
         -- Markdown Support
         { 'MeanderingProgrammer/render-markdown.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' } },
@@ -38,6 +44,27 @@ require("lazy").setup({
     checker = { enabled = true }, -- automatically check for plugin updates
 })
 
+-- require('transparent').setup()
+-- require('transparent').clear_prefix('lualine')
+ -- Optional, you don't have to run setup.
+-- require("transparent").setup({
+--   -- table: default groups
+--   groups = {
+--     'Normal', 'NormalNC', 'Comment', 'Constant', 'Special', 'Identifier',
+--     'Statement', 'PreProc', 'Type', 'Underlined', 'Todo', 'String', 'Function',
+--     'Conditional', 'Repeat', 'Operator', 'Structure', 'LineNr', 'NonText',
+--     'SignColumn', 'CursorLine', 'CursorLineNr', 'StatusLine', 'StatusLineNC',
+--     'EndOfBuffer',
+--   },
+--   -- table: additional groups that should be cleared
+--   extra_groups = {},
+--   -- table: groups you don't want to clear
+--   exclude_groups = {},
+--   -- function: code to be executed after highlight groups are cleared
+--   -- Also the user event "TransparentClear" will be triggered
+--   on_clear = function() end,
+-- })
+--
 -- TreeSitter
 local treesitter = require('nvim-treesitter')
 treesitter.setup({})
@@ -53,12 +80,20 @@ vim.lsp.config('basedpyright', { settings = { basedpyright = { analysis = { type
 
 -- LUALINE 
 require('lualine').setup({
-    options = { theme = 'vscode', globalstatus = true },
-    sections = { lualine_c = { 'buffers' } },
+    options = { theme = 'auto', globalstatus = true },
+    sections = { 
+        lualine_c = { 'buffers' },
+        lualine_b = { 'diagnostics' }
+    },
 })
 
 -- FZF-LUA
-require('fzf-lua').setup({ 'border-fused' })
+require('fzf-lua').setup({
+    'border-fused',
+    hls = { normal = 'Normal', border = 'FloatBorder' },
+    fzf_colors = true -- enable dynamic color generation
+})
+
 
 -- GIT SIGNS
 require('gitsigns').setup()
