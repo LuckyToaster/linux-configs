@@ -1,0 +1,255 @@
+config_version = 14
+
+[bar.default]
+end = [ "group:g2", "group:g1", "battery", "session" ]
+margin_ends = 0
+radius = 0
+shadow = false
+start = [ "workspaces" ]
+widget_spacing = 12
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    enabled = true
+    fill = "surface_variant"
+    id = "g1"
+    members = [ "volume", "brightness" ]
+    opacity = 1.0
+    padding = 6.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    enabled = true
+    fill = "surface_variant"
+    id = "g2"
+    members = [ "network", "bluetooth" ]
+    opacity = 1.0
+    padding = 6.0
+
+[battery]
+warning_threshold = 20
+
+[control_center]
+hidden_tabs = [
+    "media",
+    "audio",
+    "monitor",
+    "system",
+    "power",
+    "network",
+    "bluetooth",
+    "weather",
+    "calendar",
+    "notifications",
+    "screen-time"
+]
+show_session_button = false
+sidebar = "none"
+sidebar_section = "none"
+
+    [[control_center.shortcuts]]
+    type = "nightlight"
+
+    [[control_center.shortcuts]]
+    type = "dark_mode"
+
+    [[control_center.shortcuts]]
+    type = "keyboard_layout"
+
+    [[control_center.shortcuts]]
+    type = "system"
+
+[desktop_widgets]
+enabled = false
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
+
+[location]
+address = "Madrid, Spain"
+
+[lockscreen]
+fingerprint = false
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "HDMI-A-1"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.00006103515625
+    cy = 898.0
+    output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[nightlight]
+enabled = true
+
+[osd]
+enabled = false
+
+    [osd.kinds]
+    nightlight = false
+
+[plugins]
+enabled = []
+
+[shell]
+avatar_path = "/home/lucky/Pictures/funnies/Cute-Cat-Pfp-Pinterest-3.jpg"
+clipboard_enabled = false
+font_family = "JetBrainsMono NF"
+niri_overview_type_to_launch_enabled = true
+polkit_agent = true
+
+    [shell.launcher]
+    categories = false
+    compact = true
+
+    [shell.panel]
+    clipboard_position = "auto"
+    control_center_placement = "floating"
+    floating_offset = 14
+    list_item_background = true
+    session_placement = "floating"
+    wallpaper_placement = "floating"
+
+    [[shell.session.actions]]
+    action = "lock"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "1"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "logout"
+    countdown_seconds = 0.0
+    enabled = false
+    shortcut = "2"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "lock_and_suspend"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "3"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "reboot"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "4"
+    variant = "default"
+
+    [[shell.session.actions]]
+    action = "shutdown"
+    countdown_seconds = 0.0
+    enabled = true
+    shortcut = "5"
+    variant = "destructive"
+
+[theme]
+builtin = "Tokyo-Night"
+community_palette = "Solarized"
+custom_palette = "catppuccin"
+mode = "auto"
+source = "custom"
+
+    [theme.templates]
+    builtin_ids = [ "gtk3", "gtk4", "kitty", "niri" ]
+    enable_community_templates = false
+
+[wallpaper]
+directory = "/home/lucky/Pictures/wallpaper"
+
+    [wallpaper.default]
+    path = "/home/lucky/Pictures/wallpaper/1610179152113-nat.jpg"
+
+    [wallpaper.last]
+    path = "/home/lucky/Pictures/wallpaper/1610179152113-nat.jpg"
+
+    [wallpaper.monitors.HDMI-A-1]
+    path = "/home/lucky/Pictures/wallpaper/1610179152113-nat.jpg"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/lucky/Pictures/wallpaper/1610179152113-nat.jpg"
+
+[weather]
+refresh_minutes = 120
+
+[widget.battery]
+capsule = true
+
+[widget.clipboard]
+enabled = false
+
+[widget.clock]
+format = "{:%H:%M %a, %b %d}"
+interactive = false
+
+[widget.network]
+show_label = false
+
+[widget.session]
+capsule = true

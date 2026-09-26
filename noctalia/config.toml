@@ -8,5 +8,5 @@ shadow = "false"
 font_family = "JetBrainsMono Nerd Font"
 
 [hooks]
-theme_mode_changed = "~/.config/noctalia/hooks/nvim_theme.py"
-colors_changed = "~/.config/noctalia/hooks/nvim_theme.py"
+theme_mode_changed = "~/.config/noctalia/hooks/on_theme_change.py"
+colors_changed = "~/.config/noctalia/hooks/on_theme_change.py"

@@ -1,2 +1,2 @@
 vim.cmd.colorscheme 'catppuccin'
-vim.o.background='dark'
+vim.o.background='light'

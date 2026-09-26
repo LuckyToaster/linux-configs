@@ -6,6 +6,7 @@
 
 // https://niri-wm.github.io/niri/Configuration:-Input
 input {
+    focus-follows-mouse // max-scroll-amount="20%"
     keyboard {
         xkb {
             layout "us,es"
@@ -61,7 +62,7 @@ output "HDMI-A-1" {
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     background-color "transparent"
-    gaps 12
+    gaps 14
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
@@ -132,7 +133,13 @@ window-rule {
 window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
-    opacity 1.0
+    opacity 0.88
+    draw-border-with-background false
+    background-effect {
+            blur true
+            xray true
+            noise 0.05
+        }
 }
 
 binds {
@@ -147,7 +154,6 @@ binds {
     // Mod+Y hotkey-overlay-title="Open File Browser" { spawn "kitty" "-e" "yazi"; }
     Mod+N hotkey-overlay-title="File Browser" { spawn "nautilus"; }
     // Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
-    
     Mod+O repeat=false { toggle-overview; }
     Mod+W repeat=false { close-window; }
     Mod+V       { toggle-window-floating; }
@@ -218,7 +224,6 @@ binds {
 
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/%Y-%m-%d %H-%M-%S.png"
-// screenshot-path null
 
 spawn-at-startup "noctalia"
 spawn-at-startup "brave"
