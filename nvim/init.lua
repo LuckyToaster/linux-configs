@@ -182,4 +182,3 @@ end, {})
 vim.cmd('cabbrev q Q')
 
 require('noctalia_sync')
-
