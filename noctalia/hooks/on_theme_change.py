@@ -30,15 +30,6 @@ def set_ps1_color(bg, colorscheme):
     color_file.write_text(f'color="\e[38;2;{r};{g};{b}m"')
 
 
-def set_bat_theme(bg, colorscheme):
-    themes = {
-        'catppuccin': { 'dark': 'Catppuccin Mocha', 'light': 'Catppuccin Latte'},
-        'gruvbox': { 'dark': 'gruvbox-dark', 'light': 'gruvbox-light' }
-    }
-    bat_file = Path.home() / '.cache/bat_theme.sh'
-    bat_file.write_text(f'export BAT_THEME="{themes[colorscheme][bg]}"')
-
-
 if __name__ == '__main__':
     args = dict(shell=True, capture_output=True, text=True)
 
@@ -48,5 +39,4 @@ if __name__ == '__main__':
     set_nvim_theme_rpc(bg, colorscheme)
     set_nvim_theme_config(bg, colorscheme)
     set_ps1_color(bg, colorscheme)
-    set_bat_theme(bg, colorscheme)
 

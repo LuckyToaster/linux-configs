@@ -84,7 +84,7 @@ require("lazy").setup({
 -- TreeSitter
 local treesitter = require('nvim-treesitter')
 treesitter.setup({})
-treesitter.install({"python", "c", "c++", "rust", "lua", "bash", "typescript", "javascript", "html", "css", "json", "markdown", "markdown_inline", "vim", "vimdoc", "query"})
+treesitter.install({"python", "c", "cpp", "rust", "lua", "bash", "typescript", "javascript", "html", "css", "json", "markdown", "markdown_inline", "vim", "vimdoc", "query"})
 
 -- LSP SERVERS
 require("mason-lspconfig").setup {
@@ -182,3 +182,4 @@ end, {})
 vim.cmd('cabbrev q Q')
 
 require('noctalia_sync')
+require('getcolors')

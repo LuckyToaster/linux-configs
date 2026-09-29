@@ -62,7 +62,7 @@ output "HDMI-A-1" {
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     background-color "transparent"
-    gaps 14
+    gaps 12
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
@@ -80,7 +80,7 @@ layout {
         inactive-color "#505050"
     }
     border {
-        width 3
+        width 2
         active-color "#ffc87f"
         inactive-color "#505050"
         // Color of the border around windows that request your attention.
@@ -117,12 +117,11 @@ animations {
     // slowdown 3.0
 }
 
-// https://niri-wm.github.io/niri/Configuration:-Window-Rules
-// Open the Firefox picture-in-picture player as floating by default.
-window-rule {
-    match app-id=r#"brave$"# title="^Picture-in-Picture$"
-    open-floating true
-}
+// window-rule {
+//     exclude app-id="brave"
+//     exclude app-id="kitty"
+//     open-floating true
+// }
 
 window-rule {
     match app-id="brave"
@@ -132,6 +131,7 @@ window-rule {
 
 window-rule {
     geometry-corner-radius 12
+    // geometry-corner-radius 0
     clip-to-geometry true
     opacity 0.88
     draw-border-with-background false

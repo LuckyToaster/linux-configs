@@ -6,7 +6,6 @@
 [[ $- != *i* ]] && return
 
 source ~/.cache/ps1_color.sh
-source ~/.cache/bat_theme.sh
 source ~/.bash_secrets.sh
 
 PS1="\W\[${color}\]  \[\e[0m\]"
@@ -25,6 +24,7 @@ _fzf_compgen_dir() {
     fd --type d --hidden $FZF_IGNORE_DIRS
 }
 
+export BAT_THEME='base16'
 export EDITOR='nvim'
 export OLLAMA_HOST=0.0.0.0 # make ollama listen to all network interfaces so that openweb-ui can access it
 
@@ -48,5 +48,7 @@ alias panpresi='pandoc -t beamer --slide-level=2 -s --toc -V tocdepth=2 -V theme
 # opencode
 export PATH=/home/lucky/.opencode/bin:$PATH
 alias op='OPENCODE_ENABLE_EXA=1 opencode'
+
+# wifi QRNQPfHnbZ
 
 . "$HOME/.local/bin/env"
