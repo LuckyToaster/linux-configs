@@ -18,18 +18,6 @@ def set_nvim_theme_config(bg, colorscheme):
     nvim_config.write_text(f"vim.cmd.colorscheme '{colorscheme}'\nvim.o.background='{bg}'")
 
 
-def set_ps1_color(bg, colorscheme):
-    with open(Path.home() / f'.config/noctalia/palettes/{colorscheme}.json') as f:
-        hex = json.load(f)[bg]['mPrimary'][1:]
-
-    r = int(f'0x{hex[:2]}', 16)
-    g = int(f'0x{hex[2:4]}', 16)
-    b = int(f'0x{hex[-2:]}', 16)
-
-    color_file = Path.home() / '.cache/ps1_color.sh'
-    color_file.write_text(f'color="\e[38;2;{r};{g};{b}m"')
-
-
 if __name__ == '__main__':
     args = dict(shell=True, capture_output=True, text=True)
 
@@ -38,5 +26,3 @@ if __name__ == '__main__':
 
     set_nvim_theme_rpc(bg, colorscheme)
     set_nvim_theme_config(bg, colorscheme)
-    set_ps1_color(bg, colorscheme)
-

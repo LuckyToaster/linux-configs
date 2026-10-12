@@ -1,32 +1,31 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "permission": {
-    "edit": "ask",
-    "bash": {
-        "*": "ask",
-        "ls *": "allow",
-        "cat *": "allow"
-    },
-    "glob": "allow",
-    "grep": "allow",
-    "question": "allow",
-    "read": "allow",
-    "webfetch": "allow",
-    "websearch": "allow"
-  },
+  "plugin": ["@sveltejs/opencode"],
   "model": "gemini-3.5-flash",
   "provider": { "google": { "options": { "stream": true } } },
   "mcp": {
     "text-to-speech": {
-        "command": [ 
-            "/home/lucky/Documents/projects/tts_tool/.venv/bin/python",
-            "/home/lucky/Documents/projects/tts_tool/main.py"
-        ],
-        "enabled": true,
-        "type": "local"
+      "command": [ 
+        "/home/lucky/Documents/projects/tts_tool/.venv/bin/python",
+        "/home/lucky/Documents/projects/tts_tool/main.py"
+      ],
+      "enabled": true,
+      "type": "local"
     }
   },
   "agent": {
+    "build": {
+      "permission": {
+        "edit": "ask",
+        "bash": "allow"
+      }
+    },
+    "plan": {
+      "permission": {
+        "edit": "deny",
+        "bash": "ask"
+      }
+    },
     "git-workflow-master": {
       "description": "Expert in Git workflows, branching strategies, and version control best practices"
     }

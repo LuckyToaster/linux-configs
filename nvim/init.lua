@@ -9,6 +9,9 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smarttab = true
+-- autocomplete 
+vim.opt.autocomplete = true
+vim.opt.completeopt = 'menu,menuone,noselect'
 -- line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -31,12 +34,9 @@ vim.opt.splitright = true
 vim.opt.timeoutlen = 300               -- maximum delay to register a keymap
 vim.opt.termguicolors = true
 vim.opt.updatetime = 250                -- decrease update time
--- vim.opt.autochdir = true               -- important for FZF **TAB functionality
-
--- replaces: vim.cmd [[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]] -- stop auto commenting
 vim.opt.formatoptions:remove({ "c", "r", "o" }) -- stop auto commenting
-
 vim.o.winborder = 'rounded' -- makes all hover / floating windows have rounded borders
+
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -53,73 +53,71 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
         os.exit(1)
     end
 end
-
 vim.opt.rtp:prepend(lazypath)
 
--- Setup Lazy
+-- Setup Lazy and plugins
 require("lazy").setup({
     rocks = { enabled = false },
     spec = {
-        -- LSP
-        { 'mason-org/mason-lspconfig.nvim', opts = {}, dependencies = { { 'mason-org/mason.nvim', opts = {} }, { 'neovim/nvim-lspconfig', lazy = false } } },
-        -- Syntax Highlighting
-        { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', lazy = false },
-        -- Navigation 
-        { 'nvim-tree/nvim-tree.lua', lazy = true, dependencies = { 'nvim-tree/nvim-web-devicons' } },
-        { 'ibhagwan/fzf-lua', dependencies = { 'nvim-tree/nvim-web-devicons' } },
-        -- UI
-        { 'nvim-lualine/lualine.nvim', dependencies = { 'nvim-tree/nvim-web-devicons' } },
-        -- Git integration 
-        { 'lewis6991/gitsigns.nvim' },
-        -- Markdown Support
+        { 'neovim/nvim-lspconfig'},
+        { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate', lazy = false, opts = {}},
+        { 'lewis6991/gitsigns.nvim', opts = {} },
         { 'MeanderingProgrammer/render-markdown.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' } },
-        -- colorschemes
+        { 'chomosuke/typst-preview.nvim', lazy = false, version = '1.*', opts = {} },
         { 'Mofiqul/vscode.nvim' },
         { 'morhetz/gruvbox' },
         { 'catppuccin/nvim' },
+        {
+            'nvim-tree/nvim-tree.lua',
+            dependencies = { 'nvim-tree/nvim-web-devicons' },
+            opts = { filters = { dotfiles = false }, view = { width = 40 } }
+        },
+        {
+            'ibhagwan/fzf-lua',
+            dependencies = { 'nvim-tree/nvim-web-devicons' },
+            opts = {
+                'border-fused',
+                hls = { normal = 'Normal', border = 'FloatBorder' },
+                fzf_colors = true -- enable dynamic color generation
+            }
+        },
+        {
+            'nvim-lualine/lualine.nvim',
+            dependencies = { 'nvim-tree/nvim-web-devicons' },
+            opts = {
+                options = { theme = 'auto', globalstatus = true },
+                sections = {
+                    lualine_c = { 'buffers' },
+                    lualine_b = { 'diagnostics' }
+                },
+            }
+        },
     },
     checker = { enabled = true }, -- automatically check for plugin updates
 })
 
 -- TreeSitter
-local treesitter = require('nvim-treesitter')
-treesitter.setup({})
-treesitter.install({"python", "c", "cpp", "rust", "lua", "bash", "typescript", "javascript", "html", "css", "json", "markdown", "markdown_inline", "vim", "vimdoc", "query"})
+require('nvim-treesitter').install({"python", "c", "cpp", "rust", "lua", "bash", "typescript", "javascript", "html", "css", "json", "markdown", "markdown_inline", "vim", "vimdoc", "query"})
 
--- LSP SERVERS
-require("mason-lspconfig").setup {
-    ensure_installed = { "basedpyright", "clangd", "rust_analyzer", "bashls", "jsonls", "html", "cssls", "vtsls", "lua_ls" },
-}
-
--- set the type checking for python LSP 
-vim.lsp.config('basedpyright', { settings = { basedpyright = { analysis = { typeCheckingMode = "basic" } } } }) -- standard, basic, off
-
--- LUALINE 
-require('lualine').setup({
-    options = { theme = 'auto', globalstatus = true },
-    sections = {
-        lualine_c = { 'buffers' },
-        lualine_b = { 'diagnostics' }
-    },
+-- LSP
+local servers = { 'pyright', 'clangd', 'rust_analyzer', 'bashls', 'jsonls', 'html', 'cssls', 'ts_ls', 'lua_ls', 'tinymist' }
+vim.lsp.enable(servers)
+vim.lsp.config('pyright', {
+    settings = {
+        pyright = {
+            analysis = {
+                typeCheckingMode = "basic",
+                autoSearchPaths = true
+            }
+        }
+    }
 })
-
--- FZF-LUA
-require('fzf-lua').setup({
-    'border-fused',
-    hls = { normal = 'Normal', border = 'FloatBorder' },
-    fzf_colors = true -- enable dynamic color generation
-})
-
--- GIT SIGNS
-require('gitsigns').setup()
-
--- NVIM-TREE - g? for help menu
-require('nvim-tree').setup({ filters = { dotfiles = false }, view = { width = 40 } })
 
 -- KEYMAPS
 local set = function(mode, keys, action, description)
     vim.keymap.set(mode, keys, action, { desc = description })
 end
+
 set("i", "df", "<ESC>", "Exit insert mode with 'df'")
 set('t', 'df', '<C-\\><C-n>', "Exit insert mode when in terminal mode")
 set("n", "<ESC>", "<cmd>nohl<CR>", "Clear search highlights")
@@ -137,7 +135,6 @@ set('n', '<C-l>', '<C-w>l', "navigate splits with 'control + hjkl'")
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
-        --local opts = { buffer = event.buf, desc = 'LSP: ' .. description}
         local function desc(description)
             return { buffer = event.buf, desc = 'LSP: ' .. description }
         end
@@ -147,8 +144,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, desc('Refactor / rename'))
         vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, desc('Code action'))
         vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, desc(' Show Error / Warning '))
+
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if client and client:supports_method('textDocument/completion') then
+            vim.lsp.completion.enable(true, client.id, event.buf, { autotrigger = true })
+        end
     end,
 })
+
+vim.keymap.set('i', '<Tab>', function() return vim.fn.pumvisible() == 1 and '<C-n>' or '<Tab>' end, { expr = true, silent = true })
+vim.keymap.set('i', '<S-Tab>', function() return vim.fn.pumvisible() == 1 and '<C-p>' or '<S-Tab>' end, { expr = true, silent = true })
+vim.keymap.set('i', '<CR>', function() return vim.fn.pumvisible() == 1 and '<C-y>' or '<CR>' end, { expr = true, silent = true })
+
 -- nvim-tree
 set('n', '<leader>ft', '<cmd>NvimTreeToggle<cr>', 'Toggle Nvim Tree')
 -- FZF-LUA

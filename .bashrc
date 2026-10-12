@@ -5,10 +5,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-source ~/.cache/ps1_color.sh
 source ~/.bash_secrets.sh
 
-PS1="\W\[${color}\]  \[\e[0m\]"
+PS1="\W\[\e[38;5;4m\]  \[\e[0m\]"
 
 # FZF CONFIG
 eval "$(fzf --bash)"
@@ -24,6 +23,15 @@ _fzf_compgen_dir() {
     fd --type d --hidden $FZF_IGNORE_DIRS
 }
 
+# YAZI - cd into directory when exiting yazi
+function y() {
+	local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
+	command rm -f -- "$tmp"
+}
+
 export BAT_THEME='base16'
 export EDITOR='nvim'
 export OLLAMA_HOST=0.0.0.0 # make ollama listen to all network interfaces so that openweb-ui can access it
@@ -37,7 +45,7 @@ export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 # ALIASES
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias y='yazi'
+# alias y='yazi'
 alias n='nvim'
 alias panotes='pandoc --template eisvogel --listings --pdf-engine=lualatex'
 alias panpresi='pandoc -t beamer --slide-level=2 -s --toc -V tocdepth=2 -V theme:metropolis -V sectionpage=true -V urlcolor:blue'
@@ -48,7 +56,5 @@ alias panpresi='pandoc -t beamer --slide-level=2 -s --toc -V tocdepth=2 -V theme
 # opencode
 export PATH=/home/lucky/.opencode/bin:$PATH
 alias op='OPENCODE_ENABLE_EXA=1 opencode'
-
-# wifi QRNQPfHnbZ
 
 . "$HOME/.local/bin/env"

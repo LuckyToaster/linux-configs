@@ -54,7 +54,8 @@ output "eDP-1" {
 }
 
 output "HDMI-A-1" {
-    mode "2560x1440@60"
+    // mode "2560x1440@60"
+    mode "1080x1920@60"
     variable-refresh-rate
     scale 1
 }
@@ -62,7 +63,7 @@ output "HDMI-A-1" {
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     background-color "transparent"
-    gaps 12
+    gaps 14
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
@@ -75,16 +76,11 @@ layout {
     default-column-width {}
     focus-ring {
         off
-        width 2
-        active-color "#7fc8ff"
-        inactive-color "#505050"
+        // width 2
     }
     border {
+        // off
         width 2
-        active-color "#ffc87f"
-        inactive-color "#505050"
-        // Color of the border around windows that request your attention.
-        urgent-color "#9b0000"
     }
     shadow {
         // Uncomment the next line to enable shadows.
@@ -126,14 +122,15 @@ animations {
 window-rule {
     match app-id="brave"
     match app-id="^kitty$"
+    match app-id="zathura"
     default-column-width { proportion 0.5; } 
+    open-maximized true
 }
 
 window-rule {
     geometry-corner-radius 12
-    // geometry-corner-radius 0
     clip-to-geometry true
-    opacity 0.88
+    opacity 1.0
     draw-border-with-background false
     background-effect {
             blur true
