@@ -2,41 +2,39 @@
   "$schema": "https://opencode.ai/config.json",
   "shell": "/usr/bin/bash",
   "plugins": ["@sveltejs/opencode"],
+  "default_agent": "build",
   "model": "fireworks-ai/glm5.3-flash",
-  "providers": { 
+  "providers": {
     "google": { "settings": { "stream": true } },
-    "ollama": { 
-      "settings": { 
+    "ollama": {
+      "settings": {
         "baseURL": "http://100.82.243.94:11434/v1"
       }
     }
   },
-  "lsp": true,
-  "permissions": {
-    "lsp": "allow"
-  },
   "mcp": {
-    "text-to-speech": {
-      "command": [ 
-        "/home/lucky/Documents/projects/tts_tool/.venv/bin/python",
-        "/home/lucky/Documents/projects/tts_tool/main.py"
-      ],
-      "enabled": true,
-      "type": "local"
+    "servers": {
+      "text-to-speech": {
+        "type": "local",
+        "command": [
+          "/home/lucky/Documents/projects/tts_tool/.venv/bin/python",
+          "/home/lucky/Documents/projects/tts_tool/main.py"
+        ]
+      }
     }
   },
-  "agent": {
+  "agents": {
     "build": {
-      "permission": {
-        "edit": "ask",
-        "bash": "allow"
-      }
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "ask" },
+        { "action": "shell", "resource": "*", "effect": "allow" }
+      ]
     },
     "plan": {
-      "permission": {
-        "edit": "deny",
-        "bash": "ask"
-      }
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "deny" },
+        { "action": "shell", "resource": "*", "effect": "ask" }
+      ]
     },
     "git-workflow-master": {
       "description": "Expert in Git workflows, branching strategies, and version control best practices"
