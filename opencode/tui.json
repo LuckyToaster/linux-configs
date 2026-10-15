@@ -1,6 +1,6 @@
 {
   "attention": {
-    "enabled": true,
+    "enabled": false,
     "notifications": false,
     "sound": false,
     "volume": 1

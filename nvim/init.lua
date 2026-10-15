@@ -100,11 +100,11 @@ require("lazy").setup({
 require('nvim-treesitter').install({"python", "c", "cpp", "rust", "lua", "bash", "typescript", "javascript", "html", "css", "json", "markdown", "markdown_inline", "vim", "vimdoc", "query"})
 
 -- LSP
-local servers = { 'pyright', 'clangd', 'rust_analyzer', 'bashls', 'jsonls', 'html', 'cssls', 'ts_ls', 'lua_ls', 'tinymist' }
+local servers = { 'basedpyright', 'clangd', 'rust_analyzer', 'bashls', 'jsonls', 'html', 'cssls', 'ts_ls', 'lua_ls', 'tinymist' }
 vim.lsp.enable(servers)
-vim.lsp.config('pyright', {
+vim.lsp.config('basedpyright', {
     settings = {
-        pyright = {
+        basedpyright = {
             analysis = {
                 typeCheckingMode = "basic",
                 autoSearchPaths = true

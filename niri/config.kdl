@@ -50,7 +50,7 @@ output "eDP-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=1280 y=0
+    position x=0 y=0
 }
 
 output "HDMI-A-1" {
@@ -58,6 +58,7 @@ output "HDMI-A-1" {
     mode "1080x1920@60"
     variable-refresh-rate
     scale 1
+    position x=0 y=-1080
 }
 
 // https://niri-wm.github.io/niri/Configuration:-Layout
@@ -120,14 +121,6 @@ animations {
 // }
 
 window-rule {
-    match app-id="brave"
-    match app-id="^kitty$"
-    match app-id="zathura"
-    default-column-width { proportion 0.5; } 
-    open-maximized true
-}
-
-window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
     opacity 1.0
@@ -139,32 +132,47 @@ window-rule {
         }
 }
 
+window-rule {
+    match app-id="brave"
+    match app-id="^kitty$"
+    match app-id="zathura"
+    default-column-width { proportion 0.5; } 
+    open-maximized true
+}
+
 binds {
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Mod+Shift+E { quit; }
     Ctrl+Alt+Delete { quit; }
     Mod+Shift+P { power-off-monitors; }
 
-    Mod+S hotkey-overlay-title="Launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
-    Mod+Return hotkey-overlay-title="Terminal" { spawn "kitty"; }
-    Mod+B hotkey-overlay-title="Browser" { spawn "brave" "--ozone-platform-hint=auto"; } 
-    // Mod+Y hotkey-overlay-title="Open File Browser" { spawn "kitty" "-e" "yazi"; }
-    Mod+N hotkey-overlay-title="File Browser" { spawn "nautilus"; }
+    Mod+S hotkey-overlay-title="Launcher" { 
+        spawn-sh "noctalia msg panel-toggle launcher"; 
+    }
+    Mod+Return hotkey-overlay-title="Terminal" { 
+        spawn "kitty"; 
+    }
+    Mod+B hotkey-overlay-title="Browser" { 
+        spawn "brave" "--ozone-platform-hint=auto"; 
+    }
+    Mod+N hotkey-overlay-title="File Browser" { 
+        spawn "nautilus"; 
+    }
+    Mod+M hotkey-overlay-title="Mirror monitor" repeat=false { 
+        spawn-sh r#"wl-mirror --fullscreen-output $(niri msg -j outputs | jq -r 'keys[] | select(. != "eDP-1")' | head -n 1) eDP-1"#;
+    }
+
     // Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
     Mod+O repeat=false { toggle-overview; }
     Mod+W repeat=false { close-window; }
-    Mod+V       { toggle-window-floating; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
-    Mod+Shift+Slash { show-hotkey-overlay; }
-
+    Mod+V { toggle-window-floating; }
     Mod+C { center-column; }
-    // Mod+Ctrl+C { center-visible-columns; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
 
     // SCREENSHOTS
     Print { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
 
     // MOVING AROUND
     Mod+Left  { focus-column-left; }
@@ -198,18 +206,18 @@ binds {
     Mod+Shift+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
     Mod+Shift+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
 
-    F3 allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    F2 allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    F1 allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    F4 allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
-    F6 allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    F5 allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
-    // XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-    // XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-    // XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-    // XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
-    // XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-    // XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    // F3 allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+    // F2 allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    // F1 allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    // F4 allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    // F6 allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    // F5 allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
     // Example media keys mapping using playerctl.
     // This will work with any MPRIS-enabled media player.
@@ -217,6 +225,27 @@ binds {
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+
+    // MONITOR MOVEMENT
+    Mod+Ctrl+Left  { focus-monitor-left; }
+    Mod+Ctrl+Right { focus-monitor-right; }
+    Mod+Ctrl+Up  { focus-monitor-up; }
+    Mod+Ctrl+Down { focus-monitor-down; }
+
+    Mod+Ctrl+H     { focus-monitor-left; }
+    Mod+Ctrl+L     { focus-monitor-right; }
+    Mod+Ctrl+K     { focus-monitor-up; }
+    Mod+Ctrl+J     { focus-monitor-down; }
+
+    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+Up  { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Down { move-column-to-monitor-down; }
+
+    Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+    Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
 }
 
 prefer-no-csd

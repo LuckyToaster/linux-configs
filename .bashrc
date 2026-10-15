@@ -55,6 +55,6 @@ alias panpresi='pandoc -t beamer --slide-level=2 -s --toc -V tocdepth=2 -V theme
 
 # opencode
 export PATH=/home/lucky/.opencode/bin:$PATH
-alias op='OPENCODE_ENABLE_EXA=1 opencode'
+alias oc='OPENCODE_ENABLE_EXA=1 OPENCODE_EXPERIMENTAL=true opencode'
 
 . "$HOME/.local/bin/env"

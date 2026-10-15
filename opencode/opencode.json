@@ -1,8 +1,20 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["@sveltejs/opencode"],
-  "model": "gemini-3.5-flash",
-  "provider": { "google": { "options": { "stream": true } } },
+  "shell": "/usr/bin/bash",
+  "plugins": ["@sveltejs/opencode"],
+  "model": "fireworks-ai/glm5.3-flash",
+  "providers": { 
+    "google": { "settings": { "stream": true } },
+    "ollama": { 
+      "settings": { 
+        "baseURL": "http://100.82.243.94:11434/v1"
+      }
+    }
+  },
+  "lsp": true,
+  "permissions": {
+    "lsp": "allow"
+  },
   "mcp": {
     "text-to-speech": {
       "command": [ 
