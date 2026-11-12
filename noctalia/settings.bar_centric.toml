@@ -1,4 +1,4 @@
-config_version = 14
+config_version = 16
 
 [bar.default]
 end = [ "group:g2", "group:g1", "battery", "session" ]
@@ -12,7 +12,7 @@ widget_spacing = 12
     accordion = false
     accordion_direction = "end"
     enabled = true
-    fill = "surface_variant"
+    fill = "surface_container"
     id = "g1"
     members = [ "volume", "brightness" ]
     opacity = 1.0
@@ -22,7 +22,7 @@ widget_spacing = 12
     accordion = false
     accordion_direction = "end"
     enabled = true
-    fill = "surface_variant"
+    fill = "surface_container"
     id = "g2"
     members = [ "network", "bluetooth" ]
     opacity = 1.0
@@ -51,9 +51,6 @@ sidebar_section = "none"
 
     [[control_center.shortcuts]]
     type = "nightlight"
-
-    [[control_center.shortcuts]]
-    type = "dark_mode"
 
     [[control_center.shortcuts]]
     type = "keyboard_layout"
@@ -101,7 +98,7 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -128,7 +125,7 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
     type = "login_box"
 
         [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
-        background_color = "surface_variant"
+        background_color = "surface_container"
         background_opacity = 0.88
         background_radius = 12.0
         center_password_text = false
@@ -146,17 +143,17 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
 [nightlight]
 enabled = true
 
-[osd]
-enabled = false
+[notification]
+enable_daemon = false
 
-    [osd.kinds]
-    nightlight = false
+[osd.kinds]
+nightlight = false
 
 [plugins]
 enabled = []
 
 [shell]
-avatar_path = "/home/lucky/Pictures/funnies/Cute-Cat-Pfp-Pinterest-3.jpg"
+avatar_path = "/home/lucky/Pictures/funnies/cute_cat.jpg"
 clipboard_enabled = false
 font_family = "JetBrainsMono NF"
 niri_overview_type_to_launch_enabled = true
@@ -165,6 +162,7 @@ polkit_agent = true
     [shell.launcher]
     categories = false
     compact = true
+    layout = "simple"
 
     [shell.panel]
     clipboard_position = "auto"
@@ -209,31 +207,40 @@ polkit_agent = true
     shortcut = "5"
     variant = "destructive"
 
+    [shell.window_switcher]
+    show_all_outputs = false
+    show_caption = false
+    show_count = false
+
 [theme]
-builtin = "Tokyo-Night"
+builtin = "Gruvbox"
 community_palette = "Solarized"
-custom_palette = "catppuccin"
-mode = "auto"
+custom_palette = "vscode"
+mode = "dark"
 source = "custom"
 
     [theme.templates]
     builtin_ids = [ "gtk3", "gtk4", "kitty", "niri" ]
-    enable_community_templates = false
+    enable_community_templates = true
 
 [wallpaper]
 directory = "/home/lucky/Pictures/wallpaper"
 
     [wallpaper.default]
-    path = "/home/lucky/Pictures/wallpaper/1610179152113-nat.jpg"
+    path = "/home/lucky/Pictures/wallpaper/1782793378457060.png"
 
     [wallpaper.last]
-    path = "/home/lucky/Pictures/wallpaper/1610179152113-nat.jpg"
+    path = "/home/lucky/Pictures/wallpaper/1782793378457060.png"
 
     [wallpaper.monitors.HDMI-A-1]
-    path = "/home/lucky/Pictures/wallpaper/1610179152113-nat.jpg"
+    path = "/home/lucky/Pictures/wallpaper/one_piece/1748259423892113.png"
 
     [wallpaper.monitors.eDP-1]
-    path = "/home/lucky/Pictures/wallpaper/1610179152113-nat.jpg"
+    path = "/home/lucky/Pictures/wallpaper/1782793378457060.png"
+
+    [[wallpaper.favorite]]
+    path = "/home/lucky/Pictures/wallpaper/1783851755370440.jpg"
+    theme_mode = "auto"
 
 [weather]
 refresh_minutes = 120
@@ -253,3 +260,6 @@ show_label = false
 
 [widget.session]
 capsule = true
+
+[widget.workspaces]
+show_labels = false

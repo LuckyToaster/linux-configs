@@ -15,7 +15,7 @@ layout {
 
     tab-indicator {
         active-color   "#569cd6"
-        inactive-color "#144165"
+        inactive-color "#2f4455"
         urgent-color   "#f44747"
     }
 

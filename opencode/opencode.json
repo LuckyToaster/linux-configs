@@ -5,7 +5,6 @@
   "default_agent": "build",
   "model": "fireworks-ai/glm5.3-flash",
   "providers": {
-    "google": { "settings": { "stream": true } },
     "ollama": {
       "settings": {
         "baseURL": "http://100.82.243.94:11434/v1"
@@ -20,6 +19,15 @@
           "/home/lucky/Documents/projects/tts_tool/.venv/bin/python",
           "/home/lucky/Documents/projects/tts_tool/main.py"
         ]
+      },
+      "browsermcp": {
+        "type": "local",
+        "command": ["npx", "-y", "@browsermcp/mcp@latest"],
+        "disabled": false
+      },
+      "playwright": {
+        "type": "local",
+        "command": ["npx", "@playwright/mcp@latest" ]
       }
     }
   },
