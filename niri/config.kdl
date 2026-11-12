@@ -64,7 +64,7 @@ output "HDMI-A-1" {
 // https://niri-wm.github.io/niri/Configuration:-Layout
 layout {
     background-color "transparent"
-    gaps 14
+    gaps 16
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
     //   or right edge of the screen.
@@ -149,6 +149,11 @@ binds {
     Mod+S hotkey-overlay-title="Launcher" { 
         spawn-sh "noctalia msg panel-toggle launcher"; 
     }
+
+    Mod+M hotkey-overlay-title="Noctalia Control Center" {
+        spawn-sh "noctalia msg panel-toggle control-center";
+    }
+
     Mod+Return hotkey-overlay-title="Terminal" { 
         spawn "kitty"; 
     }
@@ -158,17 +163,18 @@ binds {
     Mod+N hotkey-overlay-title="File Browser" { 
         spawn "nautilus"; 
     }
-    Mod+M hotkey-overlay-title="Mirror monitor" repeat=false { 
-        spawn-sh r#"wl-mirror --fullscreen-output $(niri msg -j outputs | jq -r 'keys[] | select(. != "eDP-1")' | head -n 1) eDP-1"#;
-    }
 
-    // Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
+    // Mod+M hotkey-overlay-title="Mirror monitor" repeat=false { 
+    //     spawn-sh r#"wl-mirror --fullscreen-output $(niri msg -j outputs | jq -r 'keys[] | select(. != "eDP-1")' | head -n 1) eDP-1"#;
+    // }
+
+    Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
     Mod+O repeat=false { toggle-overview; }
     Mod+W repeat=false { close-window; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+V { toggle-window-floating; }
-    Mod+C { center-column; }
+    // Mod+C { center-column; }
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // SCREENSHOTS
